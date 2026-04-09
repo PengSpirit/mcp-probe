@@ -1,0 +1,10 @@
+src/
+*.test.ts
+*.tsbuildinfo
+tsconfig.json
+.github/
+demo.gif
+demo.tape
+scripts/
+.DS_Store
+.env
