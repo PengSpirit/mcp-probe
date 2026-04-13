@@ -1,5 +1,6 @@
 import { Client } from "@modelcontextprotocol/sdk/client";
 import { StdioClientTransport } from "@modelcontextprotocol/sdk/client/stdio";
+import type { Transport } from "@modelcontextprotocol/sdk/shared/transport";
 import ora from "ora";
 import type {
   InspectResult,
@@ -16,34 +17,27 @@ import { generateSampleArgs } from "./sample-args.js";
 import { printResult } from "./printer.js";
 
 export async function inspectServer(
-  command: string,
+  transport: Transport,
   options: InspectOptions
 ): Promise<InspectResult> {
   const startTime = Date.now();
-  const parts = command.split(/\s+/);
-  const cmd = parts[0];
-  const args = parts.slice(1);
 
   const spinner = ora("Connecting to MCP server...").start();
 
-  const transport = new StdioClientTransport({
-    command: cmd,
-    args,
-    stderr: "pipe",
-  });
-
   const client = new Client({
     name: "mcp-doctor",
-    version: "1.0.0",
+    version: "0.2.0",
   });
 
-  // Collect stderr for diagnostics
+  // Collect stderr for stdio transports only — remote transports don't have it.
   const stderrChunks: string[] = [];
-  const stderrStream = transport.stderr;
-  if (stderrStream && "on" in stderrStream) {
-    (stderrStream as NodeJS.ReadableStream).on("data", (chunk: Buffer) => {
-      stderrChunks.push(chunk.toString());
-    });
+  if (transport instanceof StdioClientTransport) {
+    const stderrStream = transport.stderr;
+    if (stderrStream && "on" in stderrStream) {
+      (stderrStream as NodeJS.ReadableStream).on("data", (chunk: Buffer) => {
+        stderrChunks.push(chunk.toString());
+      });
+    }
   }
 
   try {
