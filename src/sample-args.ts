@@ -33,23 +33,69 @@ function generateValue(name: string, schema: Record<string, unknown>): unknown {
     return schema.enum[0];
   }
 
+  // Handle oneOf / anyOf — pick first option
+  if (Array.isArray(schema.oneOf) && schema.oneOf.length > 0) {
+    return generateValue(name, schema.oneOf[0] as Record<string, unknown>);
+  }
+  if (Array.isArray(schema.anyOf) && schema.anyOf.length > 0) {
+    return generateValue(name, schema.anyOf[0] as Record<string, unknown>);
+  }
+
   const type = schema.type as string;
 
   switch (type) {
     case "string":
+      if (typeof schema.pattern === "string") {
+        return matchPattern(schema.pattern);
+      }
       return guessStringValue(name, schema);
     case "number":
     case "integer":
       return guessNumberValue(name, schema);
     case "boolean":
       return false;
-    case "array":
+    case "array": {
+      const minItems = typeof schema.minItems === "number" ? schema.minItems : 0;
+      if (minItems > 0 && schema.items && typeof schema.items === "object") {
+        return Array.from({ length: minItems }, () =>
+          generateValue("item", schema.items as Record<string, unknown>)
+        );
+      }
       return [];
-    case "object":
+    }
+    case "object": {
+      if (schema.properties && typeof schema.properties === "object") {
+        return generateSampleArgs({
+          type: "object",
+          properties: schema.properties as Record<string, object>,
+          required: schema.required as string[] | undefined,
+        });
+      }
       return {};
+    }
     default:
       return "test";
   }
+}
+
+function matchPattern(pattern: string): string {
+  // UUID
+  if (pattern.includes("[0-9a-f]{8}") && pattern.includes("[0-9a-f]{4}")) {
+    return "12345678-1234-1234-1234-123456789abc";
+  }
+  // ISO datetime
+  if (pattern.includes("T") && pattern.includes("Z")) {
+    return "2024-01-01T00:00:00Z";
+  }
+  // ISO date
+  if (pattern.includes("\\d{4}") && pattern.includes("\\d{2}")) {
+    return "2024-01-01";
+  }
+  // Hex
+  if (/^\^?\[0-9a-f\]/.test(pattern) || /^\^?\[a-f0-9\]/.test(pattern)) {
+    return "abcdef12";
+  }
+  return "test";
 }
 
 function guessStringValue(name: string, schema: Record<string, unknown>): string {

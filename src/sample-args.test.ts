@@ -79,4 +79,71 @@ describe("generateSampleArgs", () => {
     });
     expect(args).toEqual({});
   });
+
+  it("generates value matching UUID pattern", () => {
+    const args = generateSampleArgs({
+      type: "object",
+      properties: {
+        id: { type: "string", pattern: "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$" },
+      },
+      required: ["id"],
+    });
+    expect(args.id).toMatch(/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/);
+  });
+
+  it("picks first option from oneOf", () => {
+    const args = generateSampleArgs({
+      type: "object",
+      properties: {
+        value: { oneOf: [{ type: "string" }, { type: "number" }] },
+      },
+      required: ["value"],
+    });
+    expect(typeof args.value).toBe("string");
+  });
+
+  it("picks first option from anyOf", () => {
+    const args = generateSampleArgs({
+      type: "object",
+      properties: {
+        value: { anyOf: [{ type: "number" }, { type: "string" }] },
+      },
+      required: ["value"],
+    });
+    expect(typeof args.value).toBe("number");
+  });
+
+  it("generates nested object args", () => {
+    const args = generateSampleArgs({
+      type: "object",
+      properties: {
+        config: {
+          type: "object",
+          properties: {
+            name: { type: "string" },
+            count: { type: "number" },
+          },
+          required: ["name"],
+        },
+      },
+      required: ["config"],
+    });
+    expect(args.config).toEqual({ name: "test" });
+  });
+
+  it("generates array with minItems", () => {
+    const args = generateSampleArgs({
+      type: "object",
+      properties: {
+        tags: {
+          type: "array",
+          items: { type: "string" },
+          minItems: 2,
+        },
+      },
+      required: ["tags"],
+    });
+    expect(args.tags).toHaveLength(2);
+    expect((args.tags as string[])[0]).toBe("test");
+  });
 });
