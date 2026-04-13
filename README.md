@@ -36,16 +36,39 @@ npx mcp-doctor test "your-server-command"
 
 ## Usage
 
+### Local stdio server
+
 ```bash
-# Basic inspection
-mcp-doctor test "npx -y @modelcontextprotocol/server-everything"
-
-# JSON output (for CI pipelines)
-mcp-doctor test --json "node my-server.js"
-
-# Custom timeout (default: 30s per operation)
-mcp-doctor test --timeout 60000 "python my_server.py"
+npx mcp-doctor test "npx -y @modelcontextprotocol/server-everything"
 ```
+
+### Remote server (Streamable HTTP)
+
+```bash
+npx mcp-doctor test https://your-server.example.com/mcp
+```
+
+### Remote server (SSE)
+
+```bash
+npx mcp-doctor test https://your-server.example.com/mcp --transport sse
+```
+
+### Authenticated remote server
+
+```bash
+npx mcp-doctor test https://your-server.example.com/mcp \
+  --header "Authorization: Bearer $TOKEN"
+```
+
+### Options
+
+| Flag | Description |
+|---|---|
+| `--json` | Output results as JSON |
+| `--timeout <ms>` | Per-operation timeout (default 30000) |
+| `--transport <kind>` | Force `stdio`, `sse`, or `http` (auto-detected from target) |
+| `--header <Name: value>` | Add header to remote transport. Repeatable. |
 
 ### Exit codes
 
