@@ -3,6 +3,7 @@
 import { Command } from "commander";
 import { inspectServer } from "./client.js";
 import { benchServer } from "./bench.js";
+import { watchServer } from "./watcher.js";
 import { parseTarget, createTransport } from "./transport.js";
 import type { TransportKind } from "./types.js";
 
@@ -124,6 +125,55 @@ program
           iterations: parseInt(opts.iterations, 10),
           json: opts.json,
           timeout: parseInt(opts.timeout, 10),
+        });
+      } catch (error) {
+        console.error("Error:", error instanceof Error ? error.message : error);
+        process.exit(1);
+      }
+    }
+  );
+
+program
+  .command("watch")
+  .description("Watch for file changes and re-run inspection")
+  .argument("<target>", "MCP server target (command or URL)")
+  .option("--path <dir>", "Directory to watch for changes", ".")
+  .option("--timeout <ms>", "Timeout per operation in milliseconds", "30000")
+  .option("--transport <kind>", "Force transport: stdio | sse | http")
+  .option(
+    "--header <header>",
+    'Header for remote transports. Repeatable.',
+    (value: string, prev: string[] = []) => [...prev, value],
+    [] as string[]
+  )
+  .option("--debounce <ms>", "Debounce delay in milliseconds", "500")
+  .action(
+    async (
+      target: string,
+      opts: {
+        path: string;
+        timeout: string;
+        transport?: string;
+        header: string[];
+        debounce: string;
+      }
+    ) => {
+      try {
+        if (opts.transport && !["stdio", "sse", "http"].includes(opts.transport)) {
+          throw new Error(`Invalid --transport "${opts.transport}".`);
+        }
+        await watchServer({
+          target,
+          parseOpts: {
+            transport: opts.transport as TransportKind | undefined,
+            headers: opts.header,
+          },
+          inspectOpts: {
+            json: false,
+            timeout: parseInt(opts.timeout, 10),
+          },
+          watchPath: opts.path,
+          debounceMs: parseInt(opts.debounce, 10),
         });
       } catch (error) {
         console.error("Error:", error instanceof Error ? error.message : error);
