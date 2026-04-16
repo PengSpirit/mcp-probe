@@ -1,0 +1,67 @@
+name: Bug report
+description: mcp-probe crashes, reports wrong results, or misbehaves.
+title: "[bug] "
+labels: ["bug"]
+body:
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: Describe the bug and what you expected instead.
+    validations:
+      required: true
+  - type: input
+    id: command
+    attributes:
+      label: Command you ran
+      placeholder: npx @incultnitostudiosllc/mcp-probe test "..."
+    validations:
+      required: true
+  - type: textarea
+    id: output
+    attributes:
+      label: Full terminal output
+      description: Paste the complete output (stdout + stderr). Redact any secrets before pasting.
+      render: shell
+    validations:
+      required: true
+  - type: input
+    id: server
+    attributes:
+      label: MCP server being tested
+      description: Name, repo link, or server command.
+      placeholder: e.g. @modelcontextprotocol/server-filesystem
+  - type: dropdown
+    id: transport
+    attributes:
+      label: Transport
+      options:
+        - stdio
+        - SSE
+        - Streamable HTTP
+        - not sure
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: mcp-probe version
+      description: Run `npx @incultnitostudiosllc/mcp-probe --version`
+      placeholder: "0.2.1"
+    validations:
+      required: true
+  - type: input
+    id: node
+    attributes:
+      label: Node version
+      description: Run `node --version`
+      placeholder: "v20.x"
+    validations:
+      required: true
+  - type: input
+    id: os
+    attributes:
+      label: OS
+      placeholder: macOS 14.5 / Ubuntu 22.04 / Windows 11
+    validations:
+      required: true

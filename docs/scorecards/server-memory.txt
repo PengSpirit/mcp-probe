@@ -1,0 +1,48 @@
+- Connecting to MCP server...
+[32m✔[39m Connected to MCP server
+- Listing tools...
+[32m✔[39m Found 9 tools
+- Validating tool schemas...
+[33m⚠[39m Schema: 0 errors, 4 warnings
+- Checking MCP spec compliance...
+[32m✔[39m MCP spec compliance OK
+- Calling tools...
+[32m✔[39m All 9 tools callable
+
+═══════════════════════════════════════════
+  MCP Server Inspection Report
+  Server: memory-server
+═══════════════════════════════════════════
+
+Tools:
+  PASS create_entities — Create multiple new entities in the knowledge graph (4ms)
+  PASS create_relations — Create multiple new relations between entities in the knowledge graph. Relations should be in active voice (2ms)
+  PASS add_observations — Add new observations to existing entities in the knowledge graph (1ms)
+  PASS delete_entities — Delete multiple entities and their associated relations from the knowledge graph (2ms)
+  PASS delete_observations — Delete specific observations from entities in the knowledge graph (1ms)
+  PASS delete_relations — Delete multiple relations from the knowledge graph (1ms)
+  PASS read_graph — Read the entire knowledge graph (2ms)
+  PASS search_nodes — Search for nodes in the knowledge graph based on a query (1ms)
+  PASS open_nodes — Open specific nodes in the knowledge graph by their names (2ms)
+
+Schema Issues:
+  WARN  create_entities — Property "entities" missing description
+  WARN  create_relations — Property "relations" missing description
+  WARN  add_observations — Property "observations" missing description
+  WARN  delete_observations — Property "deletions" missing description
+
+═══════════════════════════════════════════
+  Health Check Score
+═══════════════════════════════════════════
+
+  Tools callable:      9/9
+  Resources readable:  N/A
+  Prompts gettable:    N/A
+  Schema errors:       0
+  Schema warnings:     4
+  Compliance errors:   0
+  Compliance warnings: 0
+  Total time:          5934ms
+
+  ALL CHECKS PASSED
+

@@ -1,0 +1,40 @@
+name: Feature request
+description: Suggest a new check, flag, report format, or behavior.
+title: "[feature] "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem does this solve?
+      description: Describe the pain point. What is mcp-probe failing to surface or making harder than it should be?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: Describe what you'd like mcp-probe to do. Include example commands or output if useful.
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives you've considered
+      description: Other tools, workarounds, or approaches you've tried.
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Tool calling / sample arguments
+        - Resource or prompt testing
+        - Schema validation
+        - Transport (stdio / SSE / HTTP)
+        - Benchmarking
+        - Report output (console / HTML / JSON)
+        - Watch mode
+        - CI integration
+        - Other
+    validations:
+      required: true

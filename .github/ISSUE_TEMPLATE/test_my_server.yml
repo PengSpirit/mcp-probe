@@ -1,0 +1,55 @@
+name: Test my MCP server
+description: Request an mcp-probe run against your server and a shared scorecard.
+title: "[test-my-server] "
+labels: ["test-request"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Maintain an MCP server and want a second-opinion health check? Fill this in and I'll run mcp-probe against it and post the scorecard as a comment.
+  - type: input
+    id: repo
+    attributes:
+      label: Server repository or docs link
+      placeholder: https://github.com/your/server
+    validations:
+      required: true
+  - type: input
+    id: command
+    attributes:
+      label: How to start the server (stdio command OR HTTP/SSE URL)
+      placeholder: npx -y your-mcp-server
+    validations:
+      required: true
+  - type: textarea
+    id: env
+    attributes:
+      label: Environment requirements (API keys, paths, setup)
+      description: List any env vars or arguments needed. Do NOT paste real secret values — use placeholders.
+      placeholder: |
+        YOUR_API_KEY (required — get one at https://...)
+        Root path arg (e.g. /tmp)
+  - type: dropdown
+    id: transport
+    attributes:
+      label: Transport
+      options:
+        - stdio
+        - SSE
+        - Streamable HTTP
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Anything specific you want tested?
+      description: Known edge cases, recently shipped tools, perf concerns you want benchmarked, etc.
+  - type: checkboxes
+    id: consent
+    attributes:
+      label: Consent
+      options:
+        - label: I'm the maintainer (or have permission) to request this test.
+          required: true
+        - label: I'm OK with the scorecard being posted publicly as a comment on this issue.
+          required: true

@@ -1,0 +1,74 @@
+- Connecting to MCP server...
+[32m✔[39m Connected to MCP server
+- Listing tools...
+[32m✔[39m Found 13 tools
+- Listing resources...
+[32m✔[39m Found 7 resources
+- Listing prompts...
+[32m✔[39m Found 4 prompts
+- Validating tool schemas...
+[33m⚠[39m Schema: 0 errors, 1 warnings
+- Checking MCP spec compliance...
+[32m✔[39m MCP spec compliance OK
+- Calling tools...
+[33m⚠[39m 12/13 tools callable
+- Reading resources...
+[32m✔[39m All 7 resources readable
+- Getting prompts...
+[33m⚠[39m 3/4 prompts gettable
+
+═══════════════════════════════════════════
+  MCP Server Inspection Report
+  Server: mcp-servers/everything
+═══════════════════════════════════════════
+
+Tools:
+  PASS echo — Echoes back the input string (4ms)
+  PASS get-annotated-message — Demonstrates how annotations can be used to provide metadata about content. (2ms)
+  PASS get-env — Returns all environment variables, helpful for debugging MCP server configuration (1ms)
+  PASS get-resource-links — Returns up to ten resource links that reference different types of resources (54ms)
+  PASS get-resource-reference — Returns a resource reference that can be used by MCP clients (4ms)
+  PASS get-structured-content — Returns structured content along with an output schema for client data validation (1ms)
+  PASS get-sum — Returns the sum of two numbers (1ms)
+  PASS get-tiny-image — Returns a tiny MCP logo image. (1ms)
+  PASS gzip-file-as-resource — Compresses a single file using gzip compression. Depending upon the selected output type, returns either the compressed data as a gzipped resource or a resource link, allowing it to be downloaded in a subsequent request during the current session. (542ms)
+  PASS toggle-simulated-logging — Toggles simulated, random-leveled logging on or off. (2ms)
+  PASS toggle-subscriber-updates — Toggles simulated resource subscription updates on or off. (2ms)
+  PASS trigger-long-running-operation — Demonstrates a long running operation with progress updates. (10010ms)
+  FAIL simulate-research-query — Simulates a deep research operation that gathers, analyzes, and synthesizes information. Demonstrates MCP task-based operations with progress through multiple stages. If 'ambiguous' is true and client supports elicitation, sends an elicitation request for clarification. (1ms)
+       MCP error -32600: Tool "simulate-research-query" requires task-based execution. Use client.experimental.tasks.callToolStream() instead.
+
+Resources:
+  PASS demo://resource/static/document/architecture.md [1604 bytes] (4ms)
+  PASS demo://resource/static/document/extension.md [965 bytes] (1ms)
+  PASS demo://resource/static/document/features.md [8815 bytes] (1ms)
+  PASS demo://resource/static/document/how-it-works.md [2766 bytes] (1ms)
+  PASS demo://resource/static/document/instructions.md [1575 bytes] (1ms)
+  PASS demo://resource/static/document/startup.md [2858 bytes] (0ms)
+  PASS demo://resource/static/document/structure.md [9338 bytes] (1ms)
+
+Prompts:
+  PASS simple-prompt — A prompt with no arguments [1 messages] (1ms)
+  PASS args-prompt — A prompt with two arguments, one required and one optional [1 messages] (1ms)
+  PASS completable-prompt — First argument choice narrows values for second argument. [1 messages] (0ms)
+  FAIL resource-prompt — A prompt that includes an embedded resource reference (1ms)
+       MCP error -32603: Invalid resourceType: test. Must be Text or Blob.
+
+Schema Issues:
+  WARN  get-resource-reference — Property "resourceType" missing description
+
+═══════════════════════════════════════════
+  Health Check Score
+═══════════════════════════════════════════
+
+  Tools callable:      12/13
+  Resources readable:  7/7
+  Prompts gettable:    3/4
+  Schema errors:       0
+  Schema warnings:     1
+  Compliance errors:   0
+  Compliance warnings: 0
+  Total time:          13202ms
+
+  SOME CHECKS FAILED
+
