@@ -32,7 +32,7 @@ export async function watchServer(options: WatchOptions): Promise<void> {
     running = true;
 
     process.stdout.write("\x1Bc");
-    console.log(`[mcp-doctor watch] Running inspection... (${new Date().toLocaleTimeString()})\n`);
+    console.log(`[mcp-probe watch] Running inspection... (${new Date().toLocaleTimeString()})\n`);
 
     try {
       const spec = parseTarget(options.target, options.parseOpts);
@@ -42,7 +42,7 @@ export async function watchServer(options: WatchOptions): Promise<void> {
       console.error("Error:", error instanceof Error ? error.message : error);
     }
 
-    console.log(`\n[mcp-doctor watch] Watching ${options.watchPath} for changes... (Ctrl+C to stop)`);
+    console.log(`\n[mcp-probe watch] Watching ${options.watchPath} for changes... (Ctrl+C to stop)`);
     running = false;
   }
 

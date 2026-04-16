@@ -28,8 +28,8 @@ export async function inspectServer(
   const spinner = ora("Connecting to MCP server...").start();
 
   const client = new Client({
-    name: "mcp-doctor",
-    version: "0.2.0",
+    name: "mcp-probe",
+    version: "0.2.1",
   });
 
   // Collect stderr for stdio transports only — remote transports don't have it.

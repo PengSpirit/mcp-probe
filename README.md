@@ -1,15 +1,17 @@
-# mcp-doctor
+# mcp-probe
 
 **One command to diagnose your MCP server.**
 
 Tests every tool, resource, and prompt your server exposes — then gives you a health report with a pass/fail scorecard.
 
+> **Note:** Published to npm as `@incultnitostudiosllc/mcp-probe`. The GitHub repository remains `mcp-doctor` (original project name). Earlier drafts used `mcp-doctor` as the package name — that name is owned by a different tool on npm, so we published under the scoped `@incultnitostudiosllc/mcp-probe` instead. The CLI binary is `mcp-probe`.
+
 <p align="center">
-  <img src="demo.gif" alt="mcp-doctor demo" width="800" />
+  <img src="demo.gif" alt="mcp-probe demo" width="800" />
 </p>
 
 ```
-npx mcp-doctor test "npx -y @modelcontextprotocol/server-everything"
+npx @incultnitostudiosllc/mcp-probe test "npx -y @modelcontextprotocol/server-everything"
 ```
 
 ## What it does
@@ -25,13 +27,13 @@ npx mcp-doctor test "npx -y @modelcontextprotocol/server-everything"
 ## Install
 
 ```bash
-npm install -g mcp-doctor
+npm install -g @incultnitostudiosllc/mcp-probe
 ```
 
 Or run directly:
 
 ```bash
-npx mcp-doctor test "your-server-command"
+npx @incultnitostudiosllc/mcp-probe test "your-server-command"
 ```
 
 ## Usage
@@ -39,25 +41,25 @@ npx mcp-doctor test "your-server-command"
 ### Local stdio server
 
 ```bash
-npx mcp-doctor test "npx -y @modelcontextprotocol/server-everything"
+npx @incultnitostudiosllc/mcp-probe test "npx -y @modelcontextprotocol/server-everything"
 ```
 
 ### Remote server (Streamable HTTP)
 
 ```bash
-npx mcp-doctor test https://your-server.example.com/mcp
+npx @incultnitostudiosllc/mcp-probe test https://your-server.example.com/mcp
 ```
 
 ### Remote server (SSE)
 
 ```bash
-npx mcp-doctor test https://your-server.example.com/mcp --transport sse
+npx @incultnitostudiosllc/mcp-probe test https://your-server.example.com/mcp --transport sse
 ```
 
 ### Authenticated remote server
 
 ```bash
-npx mcp-doctor test https://your-server.example.com/mcp \
+npx @incultnitostudiosllc/mcp-probe test https://your-server.example.com/mcp \
   --header "Authorization: Bearer $TOKEN"
 ```
 
@@ -80,7 +82,7 @@ npx mcp-doctor test https://your-server.example.com/mcp \
 Use `--json` to get structured output for automation:
 
 ```bash
-mcp-doctor test --json "your-server" | jq '.score'
+mcp-probe test --json "your-server" | jq '.score'
 ```
 
 ```json
@@ -98,7 +100,7 @@ mcp-doctor test --json "your-server" | jq '.score'
 
 ## How tool calling works
 
-mcp-doctor auto-generates arguments for each tool based on its `inputSchema`:
+mcp-probe auto-generates arguments for each tool based on its `inputSchema`:
 
 - Only **required** fields get values (safest approach)
 - Uses `default` values and `enum` first choices when available
@@ -109,7 +111,7 @@ This means tools with complex required inputs may fail — and that's useful inf
 
 ## Use cases
 
-- **MCP server development** — Run mcp-doctor in your test suite to catch regressions
+- **MCP server development** — Run mcp-probe in your test suite to catch regressions
 - **CI/CD gates** — Block deploys if your MCP server doesn't pass health checks
 - **Server evaluation** — Quickly assess third-party MCP servers before integrating them
 - **Schema quality** — Find missing descriptions and malformed schemas before users hit them

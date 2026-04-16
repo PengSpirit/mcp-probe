@@ -10,9 +10,9 @@ import type { TransportKind } from "./types.js";
 const program = new Command();
 
 program
-  .name("mcp-doctor")
+  .name("mcp-probe")
   .description("One command to diagnose your MCP server (stdio, SSE, or Streamable HTTP)")
-  .version("0.2.0");
+  .version("0.2.1");
 
 program
   .command("test")
