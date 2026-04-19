@@ -18,12 +18,12 @@ Tools:
   PASS create_entities — Create multiple new entities in the knowledge graph (4ms)
   PASS create_relations — Create multiple new relations between entities in the knowledge graph. Relations should be in active voice (2ms)
   PASS add_observations — Add new observations to existing entities in the knowledge graph (1ms)
-  PASS delete_entities — Delete multiple entities and their associated relations from the knowledge graph (2ms)
-  PASS delete_observations — Delete specific observations from entities in the knowledge graph (1ms)
+  PASS delete_entities — Delete multiple entities and their associated relations from the knowledge graph (1ms)
+  PASS delete_observations — Delete specific observations from entities in the knowledge graph (2ms)
   PASS delete_relations — Delete multiple relations from the knowledge graph (1ms)
-  PASS read_graph — Read the entire knowledge graph (2ms)
+  PASS read_graph — Read the entire knowledge graph (1ms)
   PASS search_nodes — Search for nodes in the knowledge graph based on a query (1ms)
-  PASS open_nodes — Open specific nodes in the knowledge graph by their names (2ms)
+  PASS open_nodes — Open specific nodes in the knowledge graph by their names (1ms)
 
 Schema Issues:
   WARN  create_entities — Property "entities" missing description
@@ -42,7 +42,7 @@ Schema Issues:
   Schema warnings:     4
   Compliance errors:   0
   Compliance warnings: 0
-  Total time:          5934ms
+  Total time:          1817ms
 
   ALL CHECKS PASSED
 

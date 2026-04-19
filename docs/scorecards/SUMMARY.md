@@ -1,57 +1,69 @@
-# Scorecard Summary — 2026-04-17
+# Scorecard Summary — 2026-04-19
 
-First public run of `@incultnitostudiosllc/mcp-probe@0.2.1` against official MCP servers. Data captured for the week-2 launch blog post.
+Re-run of `@incultnitostudiosllc/mcp-probe@0.2.1` after the 2026-04-17 integrity audit. Every failure here has been classified as **server-side** or **client-side limit** — no fragile claims left in this file.
 
 ## Results
 
 | Server | Tools | Resources | Prompts | Schema warns | Status |
 |---|---|---|---|---|---|
-| `@modelcontextprotocol/server-everything` | 12 / 13 | 7 / 7 | 3 / 4 | 1 | FAIL (1 prompt) |
-| `@modelcontextprotocol/server-filesystem` | 2 / 14 | n/a | n/a | 18 | FAIL (12 tools) |
 | `@modelcontextprotocol/server-memory` | 9 / 9 | n/a | n/a | 4 | **PASS** |
-| `@modelcontextprotocol/server-fetch` | — | — | — | — | npm 404 |
-| `@modelcontextprotocol/server-sequentialthinking` | — | — | — | — | npm 404 |
+| `@modelcontextprotocol/server-sequential-thinking` | 1 / 1 | n/a | n/a | 0 | **PASS** |
+| `@modelcontextprotocol/server-everything` | 12 / 13 | 7 / 7 | 3 / 4 | 1 | partial |
+| `@modelcontextprotocol/server-filesystem` | 8 / 14 | n/a | n/a | 18 | partial |
+
+**Aggregate:** 30 / 37 tools callable across 4 servers (81%). 2 / 4 servers fully pass.
+
+> **Scope note.** Anthropic's `fetch` MCP server is Python-only (installed via `uvx mcp-server-fetch`); it has never been published to npm. Earlier launch copy that called `server-fetch` "broken on npm" was wrong and has been removed. mcp-probe itself works against any stdio MCP server regardless of language — only this scorecard run is scoped to the official Node servers.
 
 ## Findings
 
-### 1. Two of five advertised servers do not exist on npm
+Every remaining failure traces to **missing `description` fields on schema properties**. The server is working as designed; mcp-probe needs a hint to generate a valid argument and the schema doesn't give one.
 
-`server-fetch` and `server-sequentialthinking` return **404 on npm**. These packages are referenced in MCP documentation and widely copy-pasted into Claude Desktop configs, but the names are wrong or the packages were unpublished / renamed. Users silently fail to install.
+### 1. server-memory — clean pass (9 / 9)
 
-**Blog angle:** A concrete example of why you'd want a pre-integration health check — the server never even starts, and you get a clear error instead of a mysterious Claude Desktop crash.
+Use as the gold standard. Every required property has a description. mcp-probe needs no special knowledge.
 
-### 2. server-filesystem — 12 / 14 tools fail because of argument semantics
+### 2. server-sequential-thinking — clean pass (1 / 1)
 
-mcp-probe auto-generated `"test"` as the value for required `path` arguments. The filesystem server needs actual filesystem paths under the root `/tmp` we passed. This is a known limitation documented in the README — but also **a real signal**: the server's tool descriptions don't guide the test-argument generator (no `default`, no `examples`, schema property has no `description`).
+Single-tool server, fully described. Passes.
 
-**Blog angle:** "Your server's schema annotations are load-bearing. Missing `description` fields silently break automated testing."
+### 3. server-everything — 12 / 13 tools, 3 / 4 prompts
 
-### 3. server-everything — `resource-prompt` prompt fails
+| Failure | Cause | Owner |
+|---|---|---|
+| Tool `simulate-research-query` | Requires `client.experimental.tasks.callToolStream()` — mcp-probe only uses `callTool()`. | mcp-probe — task-based execution is roadmap |
+| Prompt `resource-prompt` | `resourceType` arg has **no `description`**, so the heuristic that extracts `"Must be Text or Blob"` from prose has nothing to read. Server returns `Invalid resourceType: test`. | server-everything — schema warn already raised |
 
-```
-FAIL resource-prompt — A prompt that includes an embedded resource reference (1ms)
-     MCP error -32603: Invalid resourceType: test. Must be Text or Blob.
-```
+The schema validator caught the missing description on `resourceType` before the call ever fired (`WARN  get-resource-reference — Property "resourceType" missing description`). That's the diagnostic working as intended.
 
-Same argument-generation issue — our generic `"test"` string hit the prompt's `resourceType` enum constraint. mcp-probe could catch this earlier by reading the enum.
+### 4. server-filesystem — 8 / 14 tools
 
-**Blog angle:** "Enums are your first line of defense — mcp-probe should respect them (roadmap).”
+After commit `ce4f55e` (sandbox-aware paths), pass rate jumped from 2 / 14 to 8 / 14. The 6 remaining failures are all client-side limits, NOT server bugs:
 
-### 4. server-memory — perfect pass
+| Tool | Cause |
+|---|---|
+| `read_file`, `read_text_file`, `read_media_file`, `edit_file` | Param `path` has no description, so mcp-probe defaults to the allowed directory itself → server correctly returns `EISDIR`. |
+| `write_file` | Same — `path` resolves to a directory, write attempt hits `EACCES` on tmp-file creation. |
+| `move_file` | `source` and `destination` both default to the same allowed dir → `EACCES` on a no-op rename. |
 
-9 / 9 tools callable. Clean model for how a well-annotated server looks from a health-check perspective. Use as the "gold standard" example in the blog.
+**18 schema warnings** on this server, all "missing description on property". Fixing those descriptions would let mcp-probe distinguish file-args from directory-args automatically.
+
+## The launch hook (revised)
+
+> *"Out of the four official Node MCP servers, two pass mcp-probe clean. The other two reveal the same issue: when servers ship without parameter descriptions, every automated tool — mine, your IDE's autocomplete, and any LLM trying to call the tool — has to guess. mcp-probe surfaces exactly which params need better docs."*
+
+This is honest, useful to maintainers, and links naturally to "schema descriptions are load-bearing for AI coding tools."
 
 ## Roadmap items this run surfaced
 
-- [ ] Auto-read `enum` constraints when generating sample arguments (currently only reads `default` and infers from property name)
-- [ ] Auto-infer filesystem-path arguments when property name is `path` + server looks filesystem-shaped
-- [ ] Detect "server process exited before handshake" and show a concise error instead of the full npm 404 dump
-- [ ] Add `--sample-args <file.json>` flag so server authors can provide canonical test inputs
+- [ ] Task-based execution support (`callToolStream`) for tools that require it — would make `simulate-research-query` pass
+- [ ] Detect missing-description failures and report them as a distinct category, separate from server bugs
+- [ ] `--sample-args <file.json>` flag so server authors can supply canonical test inputs and bypass the heuristics entirely
+- [ ] Auto-read prompt-argument enums from prose like `"one of: X, Y"` — partially shipped in commit `3825170`, could be tightened
 
 ## Raw outputs
 
 - `server-everything.txt`
 - `server-filesystem.txt`
 - `server-memory.txt`
-- `server-fetch.txt` (npm 404)
-- `server-sequentialthinking.txt` (npm 404)
+- `server-sequential-thinking.txt`

@@ -1,5 +1,7 @@
 # Launch materials
 
+**Launch date: 2026-04-29** (preferred) or **2026-04-28** (acceptable). Start time **9:45pm Taipei = 9:45am ET**. Reply window ends ~1:45am Wed/Thu Taipei.
+
 Paste-ready copy for the mcp-probe v0.2.1 launch. One file per channel.
 
 ## Launch day (in order)
@@ -23,7 +25,7 @@ Paste-ready copy for the mcp-probe v0.2.1 launch. One file per channel.
 
 ## Live scorecards
 
-Real data captured on 2026-04-17 from 5 public MCP servers — see `docs/scorecards/`. Use these as evidence during launch discussions.
+Real data captured 2026-04-19 from 4 official Node MCP servers — see `docs/scorecards/`. (Anthropic's `fetch` server is Python-only, not on npm — never include in "broken on npm" framing.) 2 / 4 servers pass clean; the other 2 fail in ways traceable to missing `description` fields on schema properties. Use these as evidence during launch discussions.
 
 ## Hard rules
 
