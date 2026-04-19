@@ -5,4 +5,5 @@ dist/
 .env
 demo.tape
 scripts/
+!scripts/launch.sh
 graphify-out/

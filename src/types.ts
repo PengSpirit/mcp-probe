@@ -93,6 +93,7 @@ export interface InspectOptions {
   json: boolean;
   timeout: number;
   html?: string;
+  verbose?: boolean;
 }
 
 export interface BenchResult {

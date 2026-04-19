@@ -7,7 +7,7 @@
 ## Title
 
 ```
-Show HN: Mcp-probe – one command to health-check any MCP server
+Show HN: mcp-probe – one command to test any MCP server
 ```
 
 ## URL
@@ -19,33 +19,57 @@ https://github.com/PengSpirit/mcp-doctor
 ## Text (body)
 
 ```
-Hi HN — I built mcp-probe because every time I added an MCP server to Claude
-Desktop or Cursor I'd hit the same thing: silent failures, half-implemented
-tools, schemas that don't match reality.
-
-It's a CLI. You point it at a server (stdio command, SSE URL, or Streamable
-HTTP URL), and it:
+mcp-probe is a CLI that connects to any MCP server (stdio command, SSE
+URL, or Streamable HTTP URL) and:
 
 - Lists every tool, resource, and prompt
-- Calls each tool with auto-generated arguments from its input schema
+- Calls each tool with arguments generated from its input schema
 - Reads each resource and fetches each prompt
 - Validates responses against the declared schemas
 - Prints a pass/fail scorecard and exits 0/1 for CI
 
-  npx @incultnitostudiosllc/mcp-probe test "npx -y @modelcontextprotocol/server-everything"
+  npm install -g @incultnitostudiosllc/mcp-probe
+  mcp-probe test "npx -y @modelcontextprotocol/server-everything"
 
-Other flags: --html for a shareable report, --bench for p50/p95/p99 latency,
---watch for dev loops, --json for automation.
+Other flags: --html for a shareable report, --bench for p50/p95/p99
+latency per tool, --watch for dev loops, --json for automation.
 
-I'm not a DevTools company — I'm a solo builder (non-coder by background)
-who got tired of not knowing whether a server was actually working. Wrote it
-across a "Month 1–2 MCP Inspect" learning project. MIT licensed.
+I ran it against the four official Node MCP servers Anthropic publishes,
+as a sanity check on my own tool:
+
+  server-memory               9/9   tools  PASS
+  server-sequential-thinking  1/1   tools  PASS
+  server-everything           12/13 tools, 7/7 resources, 3/4 prompts
+  server-filesystem           8/14  tools
+
+30/37 tools callable across the four (81%). The interesting part isn't
+the pass rate, it's the failure mode: every remaining failure traces
+to input-schema properties shipped without `description` fields. When
+the schema doesn't describe a parameter, every automated caller — my
+probe, an IDE's autocomplete, an LLM trying to invoke the tool — has
+to guess the argument shape. On server-filesystem that meant the probe
+defaulted `path` to the allowed root directory and the server correctly
+returned EISDIR. Not a server bug, a documentation gap that breaks
+every downstream caller the same way.
+
+For full transparency: server-filesystem only got to 8/14 after I fixed
+my own client to call `list_allowed_directories` first and normalize
+macOS `/tmp` -> `/private/tmp` symlinks. Before that fix it scored 2/14.
+Writing a probe taught me how lazy most MCP clients are about sandbox
+boundaries.
+
+Background: I'm a solo builder, non-coder by training. I wrote this
+across a two-month MCP learning project because I kept adding servers
+to Claude Desktop and Cursor and discovering broken tools only after
+wiring them up. MIT licensed.
 
 Repo: https://github.com/PengSpirit/mcp-doctor
-npm: https://www.npmjs.com/package/@incultnitostudiosllc/mcp-probe
+npm:  https://www.npmjs.com/package/@incultnitostudiosllc/mcp-probe
+Full scorecard write-up: https://github.com/PengSpirit/mcp-doctor/discussions/10
 
-Would love feedback, especially: which failure modes should it catch that it
-currently misses?
+Feedback I'm specifically looking for: which failure modes should it
+catch that it currently misses, and whether the "missing description"
+diagnostic is useful to people who maintain servers.
 ```
 
 ## HN rules (hard)

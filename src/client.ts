@@ -255,7 +255,7 @@ export async function inspectServer(
     if (options.json) {
       console.log(JSON.stringify(result, null, 2));
     } else {
-      printResult(result);
+      printResult(result, { verbose: options.verbose === true });
     }
 
     if (options.html) {

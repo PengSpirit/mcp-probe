@@ -3,21 +3,47 @@
 **Post at:** https://x.com/compose/post
 **Time:** Launch day, parallel with HN submission
 **Pin tweet 1 for 2 weeks.**
+**Attach demo.gif (repo root) to tweet 1.**
 
 ## Thread (7 tweets)
 
-### 1/
+### 1/  (attach demo.gif)
 
 ```
-I shipped mcp-probe — one command to health-check any MCP server.
+I shipped mcp-probe — one command to test any MCP server.
 
-   npx @incultnitostudiosllc/mcp-probe test "<server>"
+   npm i -g @incultnitostudiosllc/mcp-probe
+   mcp-probe test "<server>"
 
 Enumerates every tool, resource, prompt. Calls them. Validates schemas.
 Prints a pass/fail scorecard. Exits 0/1 for CI.
 ```
 
 ### 2/
+
+```
+Pointed it at the 4 official Node MCP servers as a sanity check:
+
+server-memory               9/9   PASS
+server-sequential-thinking  1/1   PASS
+server-everything           12/13 tools, 3/4 prompts
+server-filesystem           8/14  tools
+
+30/37 tools pass across all four.
+```
+
+### 3/
+
+```
+The interesting part isn't the pass rate. It's that every remaining
+failure traces to the same thing: input-schema properties shipped
+without `description` fields.
+
+If the schema doesn't describe the arg, my probe — and any LLM, and
+your IDE's autocomplete — has to guess.
+```
+
+### 4/
 
 ```
 Works across all three transports:
@@ -28,41 +54,32 @@ Works across all three transports:
 Same command, same scorecard.
 ```
 
-### 3/
-
-```
-Flags that mattered to me:
---html   → shareable report
---bench  → p50 / p95 / p99 latency per tool
---watch  → re-run on file change while you build
---json   → pipe into anything
-```
-
-### 4/
-
-```
-Why I built it: every time I added a server to Claude Desktop or Cursor
-I'd discover broken tools only *after* wiring them up. I wanted one
-command that fails loudly before integration.
-```
-
 ### 5/
 
 ```
-I'm not a DevTools company. Solo indie, non-coder background, built
-this during a two-month MCP learning project. MIT licensed.
+Flags that mattered to me:
+--html   shareable report
+--bench  p50 / p95 / p99 per tool
+--watch  re-run on file change
+--json   pipe into anything
 ```
 
 ### 6/
 
 ```
-If you maintain an MCP server — I'd love to run mcp-probe against it
-and share the scorecard. Reply with a link.
+Solo indie, non-coder background, built across a two-month MCP
+learning project. MIT licensed.
+
+If you maintain an MCP server and want a scorecard run against it,
+reply with a link.
 ```
 
 ### 7/
 
 ```
+Full scorecard write-up + raw outputs:
+https://github.com/PengSpirit/mcp-doctor/discussions/10
+
 Repo + demo gif:
 https://github.com/PengSpirit/mcp-doctor
 

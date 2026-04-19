@@ -34,6 +34,11 @@ program
     (value: string, prev: string[] = []) => [...prev, value],
     [] as string[]
   )
+  .option(
+    "--verbose",
+    "Print the args mcp-probe sent for every tool/prompt call (PASS rows too)",
+    false
+  )
   .action(
     async (
       target: string,
@@ -43,6 +48,7 @@ program
         html?: string;
         transport?: string;
         header: string[];
+        verbose: boolean;
       }
     ) => {
       try {
@@ -65,6 +71,7 @@ program
           json: opts.json,
           timeout: parseInt(opts.timeout, 10),
           html: opts.html,
+          verbose: opts.verbose,
         });
 
         const { score } = result;

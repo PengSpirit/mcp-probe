@@ -7,20 +7,34 @@
 ## Message
 
 ```
-Hey all — sharing a small tool I built: mcp-probe.
+Hey all — sharing a tool I built: mcp-probe.
 
 CLI that runs a full health check on any MCP server (stdio / SSE /
 Streamable HTTP) with one command. Lists tools/resources/prompts, calls
 each, validates schemas, prints a pass/fail scorecard. Exit 0/1 for CI.
 
-   npx @incultnitostudiosllc/mcp-probe test "<server>"
+   npm install -g @incultnitostudiosllc/mcp-probe
+   mcp-probe test "<server>"
 
-Extras: --html, --bench (p50/p95/p99), --watch, --json.
+I ran it against the four official Node MCP servers as a sanity check:
 
-Built as a non-coder founder during a two-month MCP learning project,
-so I'm very open to "you're validating this wrong" feedback. If you
-maintain a server and want me to run it against yours and share the
-scorecard, please link it.
+   server-memory               9 / 9   tools  PASS
+   server-sequential-thinking  1 / 1   tools  PASS
+   server-everything           12 / 13 tools, 7 / 7 resources, 3 / 4 prompts
+   server-filesystem           8 / 14  tools
+
+30 / 37 tools callable across the four. Every remaining failure traces
+to the same thing: schema properties shipped without `description`
+fields, so any automated caller — mcp-probe, your IDE's autocomplete,
+an LLM — has to guess the argument shape. mcp-probe surfaces exactly
+which params need better docs.
+
+Built as a non-coder founder during a two-month MCP project. Open to
+"you're validating this wrong" feedback. If you maintain a server and
+want me to run it and share the scorecard, link it.
+
+Discussion thread (numbers + raw outputs):
+https://github.com/PengSpirit/mcp-doctor/discussions/10
 
 Repo: https://github.com/PengSpirit/mcp-doctor
 ```

@@ -1,7 +1,19 @@
 import chalk from "chalk";
 import type { InspectResult } from "./types.js";
 
-export function printResult(result: InspectResult): void {
+export interface PrintOptions {
+  /**
+   * When true, the args mcp-probe sent are printed under EVERY tool/prompt
+   * row — PASS rows included. By default args are only shown for failures.
+   */
+  verbose?: boolean;
+}
+
+export function printResult(
+  result: InspectResult,
+  options: PrintOptions = {}
+): void {
+  const verbose = options.verbose === true;
   const { score } = result;
 
   // Header
@@ -31,6 +43,14 @@ export function printResult(result: InspectResult): void {
         if (callResult.argsUsed && Object.keys(callResult.argsUsed).length > 0) {
           console.log(`       ${chalk.dim(`args sent: ${JSON.stringify(callResult.argsUsed)}`)}`);
         }
+      } else if (
+        verbose &&
+        callResult &&
+        callResult.success &&
+        callResult.argsUsed &&
+        Object.keys(callResult.argsUsed).length > 0
+      ) {
+        console.log(`       ${chalk.dim(`args sent: ${JSON.stringify(callResult.argsUsed)}`)}`);
       }
     }
     console.log("");
@@ -78,6 +98,14 @@ export function printResult(result: InspectResult): void {
         if (getResult.argsUsed && Object.keys(getResult.argsUsed).length > 0) {
           console.log(`       ${chalk.dim(`args sent: ${JSON.stringify(getResult.argsUsed)}`)}`);
         }
+      } else if (
+        verbose &&
+        getResult &&
+        getResult.success &&
+        getResult.argsUsed &&
+        Object.keys(getResult.argsUsed).length > 0
+      ) {
+        console.log(`       ${chalk.dim(`args sent: ${JSON.stringify(getResult.argsUsed)}`)}`);
       }
     }
     console.log("");

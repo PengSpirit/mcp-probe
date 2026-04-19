@@ -13,21 +13,39 @@ I made a tool to vet MCP servers before you add them to Claude Desktop
 ## Body
 
 ```
-If you've ever added an MCP server to Claude Desktop and had tools silently
-not work, this is for you.
+If you've ever added an MCP server to Claude Desktop and had a tool
+silently not work, this is for you.
 
-    npx @incultnitostudiosllc/mcp-probe test "<command-or-url>"
+    npm install -g @incultnitostudiosllc/mcp-probe
+    mcp-probe test "<command-or-url>"
 
 It runs every tool, reads every resource, fetches every prompt, validates
 schemas, and prints a pass/fail scorecard. One command. Works with any
 transport (stdio / SSE / Streamable HTTP).
 
-I built it as a non-coder founder during a two-month MCP learning project,
-so the output is designed to be readable, not clever.
+I ran it against the four official Node MCP servers to sanity-check
+my own tool:
+
+    server-memory               9 / 9   PASS
+    server-sequential-thinking  1 / 1   PASS
+    server-everything           12 / 13 tools, 3 / 4 prompts
+    server-filesystem           8 / 14  tools
+
+Two pass clean. The other two surface the same root cause: input-schema
+properties without `description` fields. When the schema doesn't say
+what an arg is for, every caller has to guess — Claude included. That
+matches the failure mode I was seeing in Claude Desktop: a tool listed,
+the model calls it, the call comes back with `Invalid X` or `EISDIR`
+because the model guessed wrong.
+
+I built this as a non-coder founder during a two-month MCP learning
+project, so the output is designed to be readable, not clever.
 
 Repo + demo gif: https://github.com/PengSpirit/mcp-doctor
+Full scorecard write-up: https://github.com/PengSpirit/mcp-doctor/discussions/10
 
-Happy to answer questions.
+Happy to answer questions, and if there's a server you've had trouble
+with in Claude Desktop, drop it and I'll run a scorecard.
 ```
 
 ## Note
