@@ -4,7 +4,7 @@
 
 **Launch date: Wed 2026-04-29.** Start time **9:45pm Taipei = 9:45am ET**. Reply window ends ~1:45am Thu Taipei.
 
-Paste-ready copy for the mcp-probe v0.2.1 launch. One file per channel.
+Paste-ready copy for the mcp-probe v1.0.0 launch. One file per channel.
 
 ## Launch day (in order)
 

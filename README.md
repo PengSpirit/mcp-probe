@@ -4,7 +4,7 @@
 
 Tests every tool, resource, and prompt your server exposes — then gives you a health report with a pass/fail scorecard.
 
-> **Note:** Published to npm as `@incultnitollc/mcp-probe`. The GitHub repository remains `mcp-doctor` (original project name). Earlier drafts used `mcp-doctor` as the package name — that name is owned by a different tool on npm, so we published under the scoped `@incultnitollc/mcp-probe` instead. The CLI binary is `mcp-probe`.
+> **Note:** Published to npm as `@incultnitollc/mcp-probe`. The CLI binary is `mcp-probe`. The unscoped name `mcp-doctor` on npm is owned by an unrelated tool, so this project ships under a scope. Versions `<= 0.2.1` shipped under the deprecated `@incultnitostudiosllc` scope — install `@incultnitollc/mcp-probe` instead.
 
 <p align="center">
   <img src="demo.gif" alt="mcp-probe demo" width="800" />

@@ -134,7 +134,7 @@ Make it executable: `chmod +x .git/hooks/pre-commit`.
 
 ## Tips
 
-- **Pin the version** in CI to avoid silent behavior changes: `npx -y @incultnitollc/mcp-probe@0.2.1 test ...`
+- **Pin the version** in CI to avoid silent behavior changes: `npx -y @incultnitollc/mcp-probe@1.0.0 test ...`
 - **Use `--timeout`** on slow servers — default is 30s per operation
 - **Set `--transport`** if auto-detection guesses wrong (`stdio` / `sse` / `http`)
 - **Store `--json` output as an artifact** — makes regression diffs easy across commits

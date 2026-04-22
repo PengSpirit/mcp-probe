@@ -1,6 +1,6 @@
 # Scorecard Summary — 2026-04-19
 
-Re-run of `@incultnitollc/mcp-probe@0.2.1` after the 2026-04-17 integrity audit. Every failure here has been classified as **server-side** or **client-side limit** — no fragile claims left in this file.
+Re-run of `@incultnitollc/mcp-probe@1.0.0` after the 2026-04-17 integrity audit. Every failure here has been classified as **server-side** or **client-side limit** — no fragile claims left in this file.
 
 ## Results
 

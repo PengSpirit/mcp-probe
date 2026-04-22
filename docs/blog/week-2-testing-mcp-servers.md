@@ -57,7 +57,7 @@ The mental model is `curl` for MCP servers. You don't open Claude Desktop, hand-
 
 ## 2. What I found across the four official Node servers
 
-Here is the actual scorecard from `docs/scorecards/SUMMARY.md`, re-run on `@incultnitollc/mcp-probe@0.2.1`:
+Here is the actual scorecard from `docs/scorecards/SUMMARY.md`, re-run on `@incultnitollc/mcp-probe@1.0.0`:
 
 | Server | Tools | Resources | Prompts | Schema warns | Status |
 |---|---|---|---|---|---|
