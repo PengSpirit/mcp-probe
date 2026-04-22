@@ -13,7 +13,7 @@ Show HN: mcp-probe – one command to test any MCP server
 ## URL
 
 ```
-https://github.com/PengSpirit/mcp-doctor
+https://github.com/PengSpirit/mcp-probe
 ```
 
 ## Text (body)
@@ -65,9 +65,9 @@ across a two-month MCP learning project because I kept adding servers
 to Claude Desktop and Cursor and discovering broken tools only after
 wiring them up. MIT licensed.
 
-Repo: https://github.com/PengSpirit/mcp-doctor
+Repo: https://github.com/PengSpirit/mcp-probe
 npm:  https://www.npmjs.com/package/@incultnitollc/mcp-probe
-Full scorecard write-up: https://github.com/PengSpirit/mcp-doctor/discussions/10
+Full scorecard write-up: https://github.com/PengSpirit/mcp-probe/discussions/10
 
 Feedback I'm specifically looking for: which failure modes should it
 catch that it currently misses, and whether the "missing description"

@@ -44,8 +44,8 @@ will eat anything that doesn't respect their root.)
 
 MIT, Node 20+. Solo OSS side project — feedback on missing checks welcome.
 
-https://github.com/PengSpirit/mcp-doctor
-https://github.com/PengSpirit/mcp-doctor/discussions/10
+https://github.com/PengSpirit/mcp-probe
+https://github.com/PengSpirit/mcp-probe/discussions/10
 ```
 
 ## Note

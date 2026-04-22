@@ -53,7 +53,7 @@ npm install -g @incultnitollc/mcp-probe
 
 The mental model is `curl` for MCP servers. You don't open Claude Desktop, hand-write a config, restart the app, and stare at the tool list to see whether anything broke. You run one command and get a scorecard.
 
-![mcp-probe demo](https://raw.githubusercontent.com/PengSpirit/mcp-doctor/main/demo.gif)
+![mcp-probe demo](https://raw.githubusercontent.com/PengSpirit/mcp-probe/main/demo.gif)
 
 ## 2. What I found across the four official Node servers
 
@@ -107,8 +107,8 @@ npm install -g @incultnitollc/mcp-probe
 mcp-probe test "npx -y @modelcontextprotocol/server-memory"
 ```
 
-- Repo: [github.com/PengSpirit/mcp-doctor](https://github.com/PengSpirit/mcp-doctor)
+- Repo: [github.com/PengSpirit/mcp-probe](https://github.com/PengSpirit/mcp-probe)
 - npm: [@incultnitollc/mcp-probe](https://www.npmjs.com/package/@incultnitollc/mcp-probe)
-- Raw scorecards from this post: [`docs/scorecards/`](https://github.com/PengSpirit/mcp-doctor/tree/main/docs/scorecards)
+- Raw scorecards from this post: [`docs/scorecards/`](https://github.com/PengSpirit/mcp-probe/tree/main/docs/scorecards)
 
-If you maintain an MCP server and you want a scorecard run against it, open an issue with the [test-my-server template](https://github.com/PengSpirit/mcp-doctor/issues/new?template=test_my_server.yml) and I'll post the results as a comment. If mcp-probe reports something that looks like a server bug and isn't, open an issue against mcp-probe instead — that's the loop that produced commits `3825170` and `ce4f55e`, and it's the only way the diagnostic gets more trustworthy.
+If you maintain an MCP server and you want a scorecard run against it, open an issue with the [test-my-server template](https://github.com/PengSpirit/mcp-probe/issues/new?template=test_my_server.yml) and I'll post the results as a comment. If mcp-probe reports something that looks like a server bug and isn't, open an issue against mcp-probe instead — that's the loop that produced commits `3825170` and `ce4f55e`, and it's the only way the diagnostic gets more trustworthy.

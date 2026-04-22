@@ -12,8 +12,8 @@
 **What shipped:**
 - Package: `@incultnitollc/mcp-probe@0.2.1`
 - npm: https://www.npmjs.com/package/@incultnitollc/mcp-probe
-- GitHub repo: https://github.com/PengSpirit/mcp-doctor (repo name unchanged)
-- GitHub release: https://github.com/PengSpirit/mcp-doctor/releases/tag/v0.2.1
+- GitHub repo: https://github.com/PengSpirit/mcp-probe (repo name unchanged)
+- GitHub release: https://github.com/PengSpirit/mcp-probe/releases/tag/v0.2.1
 - Binary: `mcp-probe`
 - License: MIT
 
@@ -61,7 +61,7 @@ v0.2.0 shipped 2026-04-13 (SSE + HTTP transports). v0.2.1 is the rename-only pat
 - `docs/launch/*.md` — paste-ready copy for every channel
 - `docs/scorecards/` — first 5-server run, summary + raw outputs
 - `docs/blog/week-2-testing-mcp-servers.md` — week-2 blog draft
-- GitHub Discussions enabled + seed thread: https://github.com/PengSpirit/mcp-doctor/discussions/10
+- GitHub Discussions enabled + seed thread: https://github.com/PengSpirit/mcp-probe/discussions/10
 
 ---
 
@@ -78,7 +78,7 @@ v0.2.0 shipped 2026-04-13 (SSE + HTTP transports). v0.2.1 is the rename-only pat
 
 ## Next actions (top 3)
 
-1. **Pin the Share Your Scorecard discussion** (1 click in UI): https://github.com/PengSpirit/mcp-doctor/discussions/10
+1. **Pin the Share Your Scorecard discussion** (1 click in UI): https://github.com/PengSpirit/mcp-probe/discussions/10
 2. **Pick a launch date** — ideally a Tuesday or Wednesday in the next 7 days so HN timing works
 3. **Record demo GIF re-capture** — current demo.gif references `mcp-doctor`; re-record with `mcp-probe` binary name before launch
 

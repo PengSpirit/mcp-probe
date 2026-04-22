@@ -48,8 +48,8 @@ MIT. Links in the comments.
 
 ```
 npm: https://www.npmjs.com/package/@incultnitollc/mcp-probe
-Repo: https://github.com/PengSpirit/mcp-doctor
-Scorecard write-up: https://github.com/PengSpirit/mcp-doctor/discussions/10
+Repo: https://github.com/PengSpirit/mcp-probe
+Scorecard write-up: https://github.com/PengSpirit/mcp-probe/discussions/10
 ```
 
 ## Notes

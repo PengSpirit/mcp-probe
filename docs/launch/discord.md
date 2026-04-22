@@ -36,9 +36,9 @@ Built as a non-coder founder during a two-month MCP project. Open to
 want me to run it and share the scorecard, link it.
 
 Discussion thread (numbers + raw outputs):
-https://github.com/PengSpirit/mcp-doctor/discussions/10
+https://github.com/PengSpirit/mcp-probe/discussions/10
 
-Repo: https://github.com/PengSpirit/mcp-doctor
+Repo: https://github.com/PengSpirit/mcp-probe
 ```
 
 ## Rules
