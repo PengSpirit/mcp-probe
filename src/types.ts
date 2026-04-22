@@ -94,6 +94,7 @@ export interface InspectOptions {
   timeout: number;
   html?: string;
   verbose?: boolean;
+  silent?: boolean;
 }
 
 export interface BenchResult {

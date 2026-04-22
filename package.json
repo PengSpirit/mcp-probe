@@ -2,9 +2,20 @@
   "name": "@incultnitostudiosllc/mcp-probe",
   "version": "0.2.1",
   "type": "module",
-  "main": "./dist/index.js",
+  "main": "./dist/lib.js",
+  "types": "./dist/lib.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/lib.d.ts",
+      "import": "./dist/lib.js"
+    },
+    "./lib": {
+      "types": "./dist/lib.d.ts",
+      "import": "./dist/lib.js"
+    }
+  },
   "bin": {
-    "mcp-probe": "./dist/index.js"
+    "mcp-probe": "./dist/cli.js"
   },
   "files": [
     "dist",
@@ -13,7 +24,7 @@
   ],
   "scripts": {
     "build": "tsc",
-    "dev": "tsx src/index.ts",
+    "dev": "tsx src/cli.ts",
     "test": "vitest run",
     "prepublishOnly": "npm run build && npm test"
   },

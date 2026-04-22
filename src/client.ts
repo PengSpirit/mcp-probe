@@ -19,13 +19,34 @@ import { printResult } from "./printer.js";
 import { checkCompliance } from "./spec-checker.js";
 import { generateHtmlReport } from "./html-reporter.js";
 
+interface SpinnerLike {
+  text: string;
+  succeed(text?: string): SpinnerLike;
+  fail(text?: string): SpinnerLike;
+  warn(text?: string): SpinnerLike;
+}
+
+function makeSpinner(text: string, silent: boolean): SpinnerLike {
+  if (silent) {
+    const noop: SpinnerLike = {
+      text: "",
+      succeed() { return noop; },
+      fail() { return noop; },
+      warn() { return noop; },
+    };
+    return noop;
+  }
+  return ora(text).start() as unknown as SpinnerLike;
+}
+
 export async function inspectServer(
   transport: Transport,
   options: InspectOptions
 ): Promise<InspectResult> {
   const startTime = Date.now();
+  const silent = options.silent === true;
 
-  const spinner = ora("Connecting to MCP server...").start();
+  const spinner = makeSpinner("Connecting to MCP server...", silent);
 
   const client = new Client({
     name: "mcp-probe",
@@ -83,7 +104,7 @@ export async function inspectServer(
     // ── Phase 1: Discovery ──────────────────────────────────────
 
     if (capabilities?.tools) {
-      const s = ora("Listing tools...").start();
+      const s = makeSpinner("Listing tools...", silent);
       const resp = await withTimeout(
         client.listTools(),
         options.timeout,
@@ -99,7 +120,7 @@ export async function inspectServer(
     }
 
     if (capabilities?.resources) {
-      const s = ora("Listing resources...").start();
+      const s = makeSpinner("Listing resources...", silent);
       const resp = await withTimeout(
         client.listResources(),
         options.timeout,
@@ -114,7 +135,7 @@ export async function inspectServer(
     }
 
     if (capabilities?.prompts) {
-      const s = ora("Listing prompts...").start();
+      const s = makeSpinner("Listing prompts...", silent);
       const resp = await withTimeout(
         client.listPrompts(),
         options.timeout,
@@ -131,7 +152,7 @@ export async function inspectServer(
     // ── Phase 2: Schema validation ──────────────────────────────
 
     if (result.tools.length > 0) {
-      const s = ora("Validating tool schemas...").start();
+      const s = makeSpinner("Validating tool schemas...", silent);
       result.schemaIssues = validateToolSchemas(result.tools);
       const errors = result.schemaIssues.filter((i) => i.severity === "error").length;
       const warnings = result.schemaIssues.filter((i) => i.severity === "warning").length;
@@ -144,7 +165,7 @@ export async function inspectServer(
 
     // ── Phase 2.5: Spec compliance ───────────��───────────────────
     {
-      const s = ora("Checking MCP spec compliance...").start();
+      const s = makeSpinner("Checking MCP spec compliance...", silent);
       result.complianceIssues = checkCompliance({
         capabilities: capabilities as Record<string, unknown> | undefined,
         tools: result.tools,
@@ -186,7 +207,7 @@ export async function inspectServer(
     }
 
     if (result.tools.length > 0) {
-      const s = ora("Calling tools...").start();
+      const s = makeSpinner("Calling tools...", silent);
       for (const tool of result.tools) {
         s.text = `Calling tool: ${tool.name}...`;
         const callResult = await callTool(client, tool, options.timeout, sampleCtx);
@@ -203,7 +224,7 @@ export async function inspectServer(
     // ── Phase 4: Read every resource ─────────────────────────────
 
     if (result.resources.length > 0) {
-      const s = ora("Reading resources...").start();
+      const s = makeSpinner("Reading resources...", silent);
       for (const resource of result.resources) {
         s.text = `Reading resource: ${resource.uri}...`;
         const readResult = await readResource(client, resource, options.timeout);
@@ -220,7 +241,7 @@ export async function inspectServer(
     // ── Phase 5: Get every prompt ────────────────────────────────
 
     if (result.prompts.length > 0) {
-      const s = ora("Getting prompts...").start();
+      const s = makeSpinner("Getting prompts...", silent);
       for (const prompt of result.prompts) {
         s.text = `Getting prompt: ${prompt.name}...`;
         const getResult = await getPrompt(client, prompt, options.timeout);
@@ -252,23 +273,27 @@ export async function inspectServer(
 
     // ── Output ───────────────────────────────────────────────────
 
-    if (options.json) {
-      console.log(JSON.stringify(result, null, 2));
-    } else {
-      printResult(result, { verbose: options.verbose === true });
+    if (!silent) {
+      if (options.json) {
+        console.log(JSON.stringify(result, null, 2));
+      } else {
+        printResult(result, { verbose: options.verbose === true });
+      }
     }
 
     if (options.html) {
       const html = generateHtmlReport(result);
       writeFileSync(options.html, html, "utf-8");
-      ora(`HTML report saved to ${options.html}`).succeed();
+      if (!silent) {
+        ora(`HTML report saved to ${options.html}`).succeed();
+      }
     }
 
     await client.close();
     return result;
   } catch (error) {
     spinner.fail("Failed to inspect MCP server");
-    if (stderrChunks.length > 0) {
+    if (!silent && stderrChunks.length > 0) {
       console.error("Server stderr:", stderrChunks.join(""));
     }
     await client.close().catch(() => {});
