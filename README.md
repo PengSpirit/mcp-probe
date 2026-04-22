@@ -4,14 +4,14 @@
 
 Tests every tool, resource, and prompt your server exposes — then gives you a health report with a pass/fail scorecard.
 
-> **Note:** Published to npm as `@incultnitostudiosllc/mcp-probe`. The GitHub repository remains `mcp-doctor` (original project name). Earlier drafts used `mcp-doctor` as the package name — that name is owned by a different tool on npm, so we published under the scoped `@incultnitostudiosllc/mcp-probe` instead. The CLI binary is `mcp-probe`.
+> **Note:** Published to npm as `@incultnitollc/mcp-probe`. The GitHub repository remains `mcp-doctor` (original project name). Earlier drafts used `mcp-doctor` as the package name — that name is owned by a different tool on npm, so we published under the scoped `@incultnitollc/mcp-probe` instead. The CLI binary is `mcp-probe`.
 
 <p align="center">
   <img src="demo.gif" alt="mcp-probe demo" width="800" />
 </p>
 
 ```
-npx @incultnitostudiosllc/mcp-probe test "npx -y @modelcontextprotocol/server-everything"
+npx @incultnitollc/mcp-probe test "npx -y @modelcontextprotocol/server-everything"
 ```
 
 ## What it does
@@ -27,13 +27,13 @@ npx @incultnitostudiosllc/mcp-probe test "npx -y @modelcontextprotocol/server-ev
 ## Install
 
 ```bash
-npm install -g @incultnitostudiosllc/mcp-probe
+npm install -g @incultnitollc/mcp-probe
 ```
 
 Or run directly:
 
 ```bash
-npx @incultnitostudiosllc/mcp-probe test "your-server-command"
+npx @incultnitollc/mcp-probe test "your-server-command"
 ```
 
 ## Usage
@@ -41,25 +41,25 @@ npx @incultnitostudiosllc/mcp-probe test "your-server-command"
 ### Local stdio server
 
 ```bash
-npx @incultnitostudiosllc/mcp-probe test "npx -y @modelcontextprotocol/server-everything"
+npx @incultnitollc/mcp-probe test "npx -y @modelcontextprotocol/server-everything"
 ```
 
 ### Remote server (Streamable HTTP)
 
 ```bash
-npx @incultnitostudiosllc/mcp-probe test https://your-server.example.com/mcp
+npx @incultnitollc/mcp-probe test https://your-server.example.com/mcp
 ```
 
 ### Remote server (SSE)
 
 ```bash
-npx @incultnitostudiosllc/mcp-probe test https://your-server.example.com/mcp --transport sse
+npx @incultnitollc/mcp-probe test https://your-server.example.com/mcp --transport sse
 ```
 
 ### Authenticated remote server
 
 ```bash
-npx @incultnitostudiosllc/mcp-probe test https://your-server.example.com/mcp \
+npx @incultnitollc/mcp-probe test https://your-server.example.com/mcp \
   --header "Authorization: Bearer $TOKEN"
 ```
 
@@ -128,4 +128,4 @@ npm test
 
 ## License
 
-MIT - [Incultnito Studios LLC](https://github.com/PengSpirit)
+MIT - [Incultnito LLC](https://github.com/PengSpirit)

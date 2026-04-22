@@ -12,7 +12,7 @@ It's a CLI that connects to any MCP (Model Context Protocol) server and
 runs a full health check — every tool, every resource, every prompt,
 schema-validated, with CI-friendly exit codes.
 
-    npm install -g @incultnitostudiosllc/mcp-probe
+    npm install -g @incultnitollc/mcp-probe
     mcp-probe test "<server>"
 
 To prove it on something real, I pointed it at the four official Node
@@ -47,7 +47,7 @@ MIT. Links in the comments.
 ## First comment (separate, because LinkedIn throttles posts with external links in the body)
 
 ```
-npm: https://www.npmjs.com/package/@incultnitostudiosllc/mcp-probe
+npm: https://www.npmjs.com/package/@incultnitollc/mcp-probe
 Repo: https://github.com/PengSpirit/mcp-doctor
 Scorecard write-up: https://github.com/PengSpirit/mcp-doctor/discussions/10
 ```

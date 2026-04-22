@@ -29,7 +29,7 @@ This is a **schema-completeness issue, not a server bug** — the server itself 
 
 Repro:
 ```bash
-npx -y @incultnitostudiosllc/mcp-probe test "npx -y @modelcontextprotocol/server-everything"
+npx -y @incultnitollc/mcp-probe test "npx -y @modelcontextprotocol/server-everything"
 ```
 
 Thanks for `server-everything` — it's the most useful integration test target in the ecosystem precisely because it exercises every protocol corner.

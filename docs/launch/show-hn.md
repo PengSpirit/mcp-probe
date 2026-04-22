@@ -28,7 +28,7 @@ URL, or Streamable HTTP URL) and:
 - Validates responses against the declared schemas
 - Prints a pass/fail scorecard and exits 0/1 for CI
 
-  npm install -g @incultnitostudiosllc/mcp-probe
+  npm install -g @incultnitollc/mcp-probe
   mcp-probe test "npx -y @modelcontextprotocol/server-everything"
 
 Other flags: --html for a shareable report, --bench for p50/p95/p99
@@ -66,7 +66,7 @@ to Claude Desktop and Cursor and discovering broken tools only after
 wiring them up. MIT licensed.
 
 Repo: https://github.com/PengSpirit/mcp-doctor
-npm:  https://www.npmjs.com/package/@incultnitostudiosllc/mcp-probe
+npm:  https://www.npmjs.com/package/@incultnitollc/mcp-probe
 Full scorecard write-up: https://github.com/PengSpirit/mcp-doctor/discussions/10
 
 Feedback I'm specifically looking for: which failure modes should it

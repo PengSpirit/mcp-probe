@@ -50,7 +50,7 @@ export async function inspectServer(
 
   const client = new Client({
     name: "mcp-probe",
-    version: "0.2.1",
+    version: "1.0.0",
   });
 
   // Collect stderr for stdio transports only — remote transports don't have it.

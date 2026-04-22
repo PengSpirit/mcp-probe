@@ -17,7 +17,7 @@ Built mcp-probe because I kept adding MCP servers and finding tools
 that looked fine in the manifest but threw on invocation, or resources
 that 404'd.
 
-    npm install -g @incultnitostudiosllc/mcp-probe
+    npm install -g @incultnitollc/mcp-probe
     mcp-probe test "<command-or-url>"
 
 Connects via stdio, SSE, or Streamable HTTP. Enumerates tools/resources/

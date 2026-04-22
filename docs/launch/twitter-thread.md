@@ -12,7 +12,7 @@
 ```
 I shipped mcp-probe — one command to test any MCP server.
 
-   npm i -g @incultnitostudiosllc/mcp-probe
+   npm i -g @incultnitollc/mcp-probe
    mcp-probe test "<server>"
 
 Enumerates every tool, resource, prompt. Calls them. Validates schemas.
@@ -84,7 +84,7 @@ Repo + demo gif:
 https://github.com/PengSpirit/mcp-doctor
 
 npm:
-https://www.npmjs.com/package/@incultnitostudiosllc/mcp-probe
+https://www.npmjs.com/package/@incultnitollc/mcp-probe
 ```
 
 ## Rules

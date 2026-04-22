@@ -16,7 +16,7 @@ I made a tool to vet MCP servers before you add them to Claude Desktop
 If you've ever added an MCP server to Claude Desktop and had a tool
 silently not work, this is for you.
 
-    npm install -g @incultnitostudiosllc/mcp-probe
+    npm install -g @incultnitollc/mcp-probe
     mcp-probe test "<command-or-url>"
 
 It runs every tool, reads every resource, fetches every prompt, validates

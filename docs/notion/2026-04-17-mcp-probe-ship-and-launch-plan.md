@@ -7,18 +7,18 @@
 
 ## Decision: Ship mcp-probe as first public OSS release
 
-**Entity:** Incultnito Studios LLC (owner) — published under npm org scope `@incultnitostudiosllc`
+**Entity:** Incultnito LLC (owner) — published under npm org scope `@incultnitollc`
 
 **What shipped:**
-- Package: `@incultnitostudiosllc/mcp-probe@0.2.1`
-- npm: https://www.npmjs.com/package/@incultnitostudiosllc/mcp-probe
+- Package: `@incultnitollc/mcp-probe@0.2.1`
+- npm: https://www.npmjs.com/package/@incultnitollc/mcp-probe
 - GitHub repo: https://github.com/PengSpirit/mcp-doctor (repo name unchanged)
 - GitHub release: https://github.com/PengSpirit/mcp-doctor/releases/tag/v0.2.1
 - Binary: `mcp-probe`
 - License: MIT
 
 **Why this name:**
-Unscoped `mcp-doctor` was already taken on npm by an unrelated MCP-config-fixer tool (crooj026). Also taken: `mcp-inspect`, `mcp-tester`. Scoped under `@incultnitostudiosllc` because: (a) guarantees name availability, (b) preserves the Incultnito Studios brand, (c) avoids binary collision.
+Unscoped `mcp-doctor` was already taken on npm by an unrelated MCP-config-fixer tool (crooj026). Also taken: `mcp-inspect`, `mcp-tester`. Scoped under `@incultnitollc` because: (a) guarantees name availability, (b) preserves the Incultnito Studios brand, (c) avoids binary collision.
 
 **Why this version:**
 v0.2.0 shipped 2026-04-13 (SSE + HTTP transports). v0.2.1 is the rename-only patch. No functional changes.
@@ -72,7 +72,7 @@ v0.2.0 shipped 2026-04-13 (SSE + HTTP transports). v0.2.1 is the rename-only pat
 | HN flops (<10 points in 1hr) | Don't reupload same day. Let it breathe. Week-2 blog is your second shot. |
 | Server maintainers take the "broken scorecard" findings personally | Give 72h heads-up via GitHub issue before publishing negative findings. |
 | A viral moment generates issues Peng can't handle (solo non-coder) | test-my-server template absorbs traffic. Reply within 48h, not 30min, except for HN / Reddit launch day. |
-| npm name squatting or trademark confusion | MIT license + clear "a tool by Incultnito Studios LLC" attribution in README protects positioning. |
+| npm name squatting or trademark confusion | MIT license + clear "a tool by Incultnito LLC" attribution in README protects positioning. |
 
 ---
 

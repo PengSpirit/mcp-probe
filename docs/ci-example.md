@@ -31,7 +31,7 @@ jobs:
         run: npm run build
 
       - name: Health check with mcp-probe
-        run: npx -y @incultnitostudiosllc/mcp-probe test "node dist/index.js"
+        run: npx -y @incultnitollc/mcp-probe test "node dist/index.js"
 ```
 
 **What happens on failure:** `mcp-probe` exits with code `1` and fails the job. You see the scorecard in the Actions log.
@@ -43,7 +43,7 @@ Upload a shareable report on every run:
 ```yaml
 - name: Health check with mcp-probe
   run: |
-    npx -y @incultnitostudiosllc/mcp-probe test "node dist/index.js" \
+    npx -y @incultnitollc/mcp-probe test "node dist/index.js" \
       --html mcp-report.html
   continue-on-error: false
 
@@ -62,7 +62,7 @@ Track latency regressions over time:
 ```yaml
 - name: Latency benchmark
   run: |
-    npx -y @incultnitostudiosllc/mcp-probe test "node dist/index.js" \
+    npx -y @incultnitollc/mcp-probe test "node dist/index.js" \
       --bench --json > bench.json
 
 - name: Upload bench data
@@ -79,7 +79,7 @@ If your server is deployed:
 ```yaml
 - name: Health check against staging
   run: |
-    npx -y @incultnitostudiosllc/mcp-probe test \
+    npx -y @incultnitollc/mcp-probe test \
       "${{ secrets.MCP_STAGING_URL }}" \
       --header "Authorization: Bearer ${{ secrets.MCP_TOKEN }}"
 ```
@@ -92,7 +92,7 @@ mcp_probe:
   script:
     - npm ci
     - npm run build
-    - npx -y @incultnitostudiosllc/mcp-probe test "node dist/index.js"
+    - npx -y @incultnitollc/mcp-probe test "node dist/index.js"
 ```
 
 ## CircleCI
@@ -107,7 +107,7 @@ jobs:
       - checkout
       - run: npm ci
       - run: npm run build
-      - run: npx -y @incultnitostudiosllc/mcp-probe test "node dist/index.js"
+      - run: npx -y @incultnitollc/mcp-probe test "node dist/index.js"
 workflows:
   test:
     jobs: [mcp_probe]
@@ -120,7 +120,7 @@ Run a fast probe before every commit. Save as `.git/hooks/pre-commit`:
 ```bash
 #!/usr/bin/env bash
 set -e
-npx -y @incultnitostudiosllc/mcp-probe test "node dist/index.js" --timeout 10000
+npx -y @incultnitollc/mcp-probe test "node dist/index.js" --timeout 10000
 ```
 
 Make it executable: `chmod +x .git/hooks/pre-commit`.
@@ -134,7 +134,7 @@ Make it executable: `chmod +x .git/hooks/pre-commit`.
 
 ## Tips
 
-- **Pin the version** in CI to avoid silent behavior changes: `npx -y @incultnitostudiosllc/mcp-probe@0.2.1 test ...`
+- **Pin the version** in CI to avoid silent behavior changes: `npx -y @incultnitollc/mcp-probe@0.2.1 test ...`
 - **Use `--timeout`** on slow servers — default is 30s per operation
 - **Set `--transport`** if auto-detection guesses wrong (`stdio` / `sse` / `http`)
 - **Store `--json` output as an artifact** — makes regression diffs easy across commits

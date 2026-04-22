@@ -13,7 +13,7 @@ CLI that runs a full health check on any MCP server (stdio / SSE /
 Streamable HTTP) with one command. Lists tools/resources/prompts, calls
 each, validates schemas, prints a pass/fail scorecard. Exit 0/1 for CI.
 
-   npm install -g @incultnitostudiosllc/mcp-probe
+   npm install -g @incultnitollc/mcp-probe
    mcp-probe test "<server>"
 
 I ran it against the four official Node MCP servers as a sanity check:

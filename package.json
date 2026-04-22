@@ -1,6 +1,6 @@
 {
-  "name": "@incultnitostudiosllc/mcp-probe",
-  "version": "0.2.1",
+  "name": "@incultnitollc/mcp-probe",
+  "version": "1.0.0",
   "type": "module",
   "main": "./dist/lib.js",
   "types": "./dist/lib.d.ts",
@@ -37,7 +37,7 @@
     "ai",
     "llm"
   ],
-  "author": "Incultnito Studios LLC",
+  "author": "Incultnito LLC",
   "license": "MIT",
   "description": "One command to diagnose your MCP server. Tests every tool, resource, and prompt — then gives you a health report.",
   "repository": {

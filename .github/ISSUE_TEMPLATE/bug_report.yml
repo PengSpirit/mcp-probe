@@ -14,7 +14,7 @@ body:
     id: command
     attributes:
       label: Command you ran
-      placeholder: npx @incultnitostudiosllc/mcp-probe test "..."
+      placeholder: npx @incultnitollc/mcp-probe test "..."
     validations:
       required: true
   - type: textarea
@@ -46,7 +46,7 @@ body:
     id: version
     attributes:
       label: mcp-probe version
-      description: Run `npx @incultnitostudiosllc/mcp-probe --version`
+      description: Run `npx @incultnitollc/mcp-probe --version`
       placeholder: "0.2.1"
     validations:
       required: true

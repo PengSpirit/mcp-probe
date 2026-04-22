@@ -16,7 +16,7 @@ For anyone running MCP servers locally: mcp-probe connects over
 stdio/SSE/HTTP, exercises every tool/resource/prompt, validates schemas,
 and prints a scorecard. CI-friendly exit codes.
 
-    npm install -g @incultnitostudiosllc/mcp-probe
+    npm install -g @incultnitollc/mcp-probe
     mcp-probe test "<server>"
     mcp-probe test "<server>" --bench       # p50/p95/p99
     mcp-probe test "<server>" --html out.html

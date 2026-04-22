@@ -15,7 +15,7 @@ Before publishing:
   3. Re-confirm the scorecard table against docs/scorecards/SUMMARY.md the morning of publish.
 -->
 
-I shipped a small CLI called [`mcp-probe`](https://www.npmjs.com/package/@incultnitostudiosllc/mcp-probe) — point it at any MCP server and it runs a health check: enumerates every tool, resource, and prompt, calls each one with auto-generated sample arguments, validates against declared schemas, prints a pass/fail scorecard, and exits 0 or 1 for CI.
+I shipped a small CLI called [`mcp-probe`](https://www.npmjs.com/package/@incultnitollc/mcp-probe) — point it at any MCP server and it runs a health check: enumerates every tool, resource, and prompt, calls each one with auto-generated sample arguments, validates against declared schemas, prints a pass/fail scorecard, and exits 0 or 1 for CI.
 
 The plan for launch week was to run it against the official Node MCP servers and post the results. The first run made me look like I'd broken half the ecosystem. The second run, after I'd actually read my own output, told a different story: most of the failures were bugs in my client, not bugs in the servers. The remaining failures all collapse into a single substantive finding about schema design.
 
@@ -26,7 +26,7 @@ This post is the corrected version. Three sections: what mcp-probe does, what th
 One command. stdio, SSE, or Streamable HTTP transport. No config file required.
 
 ```bash
-npx @incultnitostudiosllc/mcp-probe test "npx -y @modelcontextprotocol/server-memory"
+npx @incultnitollc/mcp-probe test "npx -y @modelcontextprotocol/server-memory"
 ```
 
 Output is a scorecard:
@@ -42,13 +42,13 @@ ALL CHECKS PASSED
 Exit code 0 if everything passes, 1 if anything fails. Drop it in CI:
 
 ```yaml
-- run: npx -y @incultnitostudiosllc/mcp-probe test "node dist/index.js"
+- run: npx -y @incultnitollc/mcp-probe test "node dist/index.js"
 ```
 
 Install globally if you'd rather not `npx` every time:
 
 ```bash
-npm install -g @incultnitostudiosllc/mcp-probe
+npm install -g @incultnitollc/mcp-probe
 ```
 
 The mental model is `curl` for MCP servers. You don't open Claude Desktop, hand-write a config, restart the app, and stare at the tool list to see whether anything broke. You run one command and get a scorecard.
@@ -57,7 +57,7 @@ The mental model is `curl` for MCP servers. You don't open Claude Desktop, hand-
 
 ## 2. What I found across the four official Node servers
 
-Here is the actual scorecard from `docs/scorecards/SUMMARY.md`, re-run on `@incultnitostudiosllc/mcp-probe@0.2.1`:
+Here is the actual scorecard from `docs/scorecards/SUMMARY.md`, re-run on `@incultnitollc/mcp-probe@0.2.1`:
 
 | Server | Tools | Resources | Prompts | Schema warns | Status |
 |---|---|---|---|---|---|
@@ -103,12 +103,12 @@ The loop, in one sentence: I had to make my client honest about what it was send
 ## Try it
 
 ```bash
-npm install -g @incultnitostudiosllc/mcp-probe
+npm install -g @incultnitollc/mcp-probe
 mcp-probe test "npx -y @modelcontextprotocol/server-memory"
 ```
 
 - Repo: [github.com/PengSpirit/mcp-doctor](https://github.com/PengSpirit/mcp-doctor)
-- npm: [@incultnitostudiosllc/mcp-probe](https://www.npmjs.com/package/@incultnitostudiosllc/mcp-probe)
+- npm: [@incultnitollc/mcp-probe](https://www.npmjs.com/package/@incultnitollc/mcp-probe)
 - Raw scorecards from this post: [`docs/scorecards/`](https://github.com/PengSpirit/mcp-doctor/tree/main/docs/scorecards)
 
 If you maintain an MCP server and you want a scorecard run against it, open an issue with the [test-my-server template](https://github.com/PengSpirit/mcp-doctor/issues/new?template=test_my_server.yml) and I'll post the results as a comment. If mcp-probe reports something that looks like a server bug and isn't, open an issue against mcp-probe instead — that's the loop that produced commits `3825170` and `ce4f55e`, and it's the only way the diagnostic gets more trustworthy.

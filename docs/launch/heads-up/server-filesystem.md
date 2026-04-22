@@ -45,7 +45,7 @@ I'm happy to send a PR if helpful — let me know either way. We'll mention this
 
 Repro:
 ```bash
-npx -y @incultnitostudiosllc/mcp-probe test "npx -y @modelcontextprotocol/server-filesystem /tmp"
+npx -y @incultnitollc/mcp-probe test "npx -y @modelcontextprotocol/server-filesystem /tmp"
 ```
 
 Thanks for shipping the reference servers — they're the why-MCP-works-at-all argument.
