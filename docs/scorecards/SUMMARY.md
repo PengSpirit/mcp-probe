@@ -54,6 +54,8 @@ After commit `ce4f55e` (sandbox-aware paths), pass rate jumped from 2 / 14 to 8 
 
 This is honest, useful to maintainers, and links naturally to "schema descriptions are load-bearing for AI coding tools."
 
+> **Footnote.** The one tool gap on the mcp-probe side — `simulate-research-query` in server-everything — is a client-side limit, not a missing-description issue. It needs `client.experimental.tasks.callToolStream()`, which mcp-probe doesn't wire up yet. Shipping this is on the v0.3 roadmap; the 12/13 number above reflects that gap transparently.
+
 ## Roadmap items this run surfaced
 
 - [ ] Task-based execution support (`callToolStream`) for tools that require it — would make `simulate-research-query` pass
