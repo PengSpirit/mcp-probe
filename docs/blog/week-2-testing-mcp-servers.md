@@ -15,11 +15,11 @@ Before publishing:
   3. Re-confirm the scorecard table against docs/scorecards/SUMMARY.md the morning of publish.
 -->
 
-I shipped a small CLI called [`mcp-probe`](https://www.npmjs.com/package/@incultnitollc/mcp-probe) — point it at any MCP server and it runs a health check: enumerates every tool, resource, and prompt, calls each one with auto-generated sample arguments, validates against declared schemas, prints a pass/fail scorecard, and exits 0 or 1 for CI.
+I shipped [`mcp-probe`](https://www.npmjs.com/package/@incultnitollc/mcp-probe) — a CLI that points at any MCP server, enumerates every tool, resource, and prompt, calls each with auto-generated arguments, validates against declared schemas, prints a pass/fail scorecard, and exits 0/1 for CI.
 
-The plan for launch week was to run it against the official Node MCP servers and post the results. The first run made me look like I'd broken half the ecosystem. The second run, after I'd actually read my own output, told a different story: most of the failures were bugs in my client, not bugs in the servers. The remaining failures all collapse into a single substantive finding about schema design.
+The plan for launch week: run it against the official Node MCP servers and post results. The first run made me look like I'd broken half the ecosystem. The second, after I read my own output, told a different story — most failures were bugs in my client, not the servers. The rest collapsed into one finding about schema design.
 
-This post is the corrected version. Three sections: what mcp-probe does, what the scorecards actually say, and the three bugs I had to fix in my own client before I could trust any failure I was reporting.
+This post is the corrected version. Three sections: what mcp-probe does, what the scorecards say, and the three bugs I fixed in my own client first.
 
 ## 1. What mcp-probe does
 
@@ -53,11 +53,11 @@ npm install -g @incultnitollc/mcp-probe
 
 The mental model is `curl` for MCP servers. You don't open Claude Desktop, hand-write a config, restart the app, and stare at the tool list to see whether anything broke. You run one command and get a scorecard.
 
-![mcp-probe demo](https://raw.githubusercontent.com/PengSpirit/mcp-probe/main/demo.gif)
+![mcp-probe demo](https://raw.githubusercontent.com/incultnitollc/mcp-probe/main/demo.gif)
 
 ## 2. What I found across the four official Node servers
 
-Here is the actual scorecard from `docs/scorecards/SUMMARY.md`, re-run on `@incultnitollc/mcp-probe@1.0.0`:
+Here is the actual scorecard from `docs/scorecards/SUMMARY.md`, re-run on `@incultnitollc/mcp-probe@1.0.1`:
 
 | Server | Tools | Resources | Prompts | Schema warns | Status |
 |---|---|---|---|---|---|
@@ -107,8 +107,8 @@ npm install -g @incultnitollc/mcp-probe
 mcp-probe test "npx -y @modelcontextprotocol/server-memory"
 ```
 
-- Repo: [github.com/PengSpirit/mcp-probe](https://github.com/PengSpirit/mcp-probe)
+- Repo: [github.com/incultnitollc/mcp-probe](https://github.com/incultnitollc/mcp-probe)
 - npm: [@incultnitollc/mcp-probe](https://www.npmjs.com/package/@incultnitollc/mcp-probe)
-- Raw scorecards from this post: [`docs/scorecards/`](https://github.com/PengSpirit/mcp-probe/tree/main/docs/scorecards)
+- Raw scorecards from this post: [`docs/scorecards/`](https://github.com/incultnitollc/mcp-probe/tree/main/docs/scorecards)
 
-If you maintain an MCP server and you want a scorecard run against it, open an issue with the [test-my-server template](https://github.com/PengSpirit/mcp-probe/issues/new?template=test_my_server.yml) and I'll post the results as a comment. If mcp-probe reports something that looks like a server bug and isn't, open an issue against mcp-probe instead — that's the loop that produced commits `3825170` and `ce4f55e`, and it's the only way the diagnostic gets more trustworthy.
+If you maintain an MCP server and you want a scorecard run against it, open an issue with the [test-my-server template](https://github.com/incultnitollc/mcp-probe/issues/new?template=test_my_server.yml) and I'll post the results as a comment. If mcp-probe reports something that looks like a server bug and isn't, open an issue against mcp-probe instead — that's the loop that produced commits `3825170` and `ce4f55e`, and it's the only way the diagnostic gets more trustworthy.
