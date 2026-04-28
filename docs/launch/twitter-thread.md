@@ -78,10 +78,10 @@ reply with a link.
 
 ```
 Full scorecard write-up + raw outputs:
-https://github.com/PengSpirit/mcp-probe/discussions/10
+https://github.com/incultnitollc/mcp-probe/discussions/10
 
 Repo + demo gif:
-https://github.com/PengSpirit/mcp-probe
+https://github.com/incultnitollc/mcp-probe
 
 npm:
 https://www.npmjs.com/package/@incultnitollc/mcp-probe

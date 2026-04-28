@@ -25,4 +25,4 @@ See [MIGRATION.md](./MIGRATION.md) for a full upgrade path.
 
 ## Prior versions
 
-Versions `0.2.1` and earlier shipped under the deprecated `@incultnitostudiosllc/mcp-probe` scope. Release notes for those versions live on the [GitHub releases page](https://github.com/PengSpirit/mcp-probe/releases). No functional changes between `0.2.1` and `1.0.0` beyond the library/CLI split and scope rename — CLI behavior, transports, scoring, and output formats are unchanged.
+Versions `0.2.1` and earlier shipped under the deprecated `@incultnitostudiosllc/mcp-probe` scope. Release notes for those versions live on the [GitHub releases page](https://github.com/incultnitollc/mcp-probe/releases). No functional changes between `0.2.1` and `1.0.0` beyond the library/CLI split and scope rename — CLI behavior, transports, scoring, and output formats are unchanged.

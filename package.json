@@ -42,11 +42,11 @@
   "description": "One command to diagnose your MCP server. Tests every tool, resource, and prompt — then gives you a health report.",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/PengSpirit/mcp-probe.git"
+    "url": "git+https://github.com/incultnitollc/mcp-probe.git"
   },
-  "homepage": "https://github.com/PengSpirit/mcp-probe",
+  "homepage": "https://github.com/incultnitollc/mcp-probe",
   "bugs": {
-    "url": "https://github.com/PengSpirit/mcp-probe/issues"
+    "url": "https://github.com/incultnitollc/mcp-probe/issues"
   },
   "engines": {
     "node": ">=20"

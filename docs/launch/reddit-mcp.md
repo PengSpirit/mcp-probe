@@ -52,9 +52,9 @@ first and normalize macOS `/tmp` → `/private/tmp`. Sandboxed servers
 expose how lazy your client is.)
 
 Full scorecard + raw outputs:
-https://github.com/PengSpirit/mcp-probe/discussions/10
+https://github.com/incultnitollc/mcp-probe/discussions/10
 
-Repo: https://github.com/PengSpirit/mcp-probe
+Repo: https://github.com/incultnitollc/mcp-probe
 
 If you maintain a server and want me to run it against your implementation
 and share results, drop a link.

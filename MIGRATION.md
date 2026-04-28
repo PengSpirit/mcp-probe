@@ -88,4 +88,4 @@ Named exports available from the package root and `./lib` subpath:
 - Config files, environment variables, target strings, report schemas, exit codes — **no changes**.
 - GitHub issue links, release pages, and old README URLs continue to resolve via GitHub's permanent redirect.
 
-If you hit anything that isn't covered here, open an issue: <https://github.com/PengSpirit/mcp-probe/issues>.
+If you hit anything that isn't covered here, open an issue: <https://github.com/incultnitollc/mcp-probe/issues>.

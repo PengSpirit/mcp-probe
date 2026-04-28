@@ -119,7 +119,7 @@ This means tools with complex required inputs may fail — and that's useful inf
 ## Development
 
 ```bash
-git clone https://github.com/PengSpirit/mcp-probe.git
+git clone https://github.com/incultnitollc/mcp-probe.git
 cd mcp-doctor
 npm install
 npm run dev -- test "npx -y @modelcontextprotocol/server-everything"

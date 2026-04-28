@@ -43,8 +43,8 @@ because the model guessed wrong.
 I built this as a non-coder founder during a two-month MCP learning
 project, so the output is designed to be readable, not clever.
 
-Repo + demo gif: https://github.com/PengSpirit/mcp-probe
-Full scorecard write-up: https://github.com/PengSpirit/mcp-probe/discussions/10
+Repo + demo gif: https://github.com/incultnitollc/mcp-probe
+Full scorecard write-up: https://github.com/incultnitollc/mcp-probe/discussions/10
 
 Happy to answer questions, and if there's a server you've had trouble
 with in Claude Desktop, drop it and I'll run a scorecard.

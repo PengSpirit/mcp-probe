@@ -12,7 +12,7 @@
 
 ## Body
 
-Hi — running [mcp-probe](https://github.com/PengSpirit/mcp-probe) against `@modelcontextprotocol/server-everything@2026.1.26` surfaces one schema warning that becomes a hard failure when the prompt is invoked:
+Hi — running [mcp-probe](https://github.com/incultnitollc/mcp-probe) against `@modelcontextprotocol/server-everything@2026.1.26` surfaces one schema warning that becomes a hard failure when the prompt is invoked:
 
 ```
 WARN  get-resource-reference — Property "resourceType" missing description
