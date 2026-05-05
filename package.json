@@ -30,16 +30,25 @@
   },
   "keywords": [
     "mcp",
+    "mcp-server",
+    "mcp-tools",
+    "mcp-validation",
     "model-context-protocol",
+    "validation",
+    "validator",
+    "schema-validation",
     "testing",
+    "diagnostic",
+    "ci",
     "cli",
     "developer-tools",
+    "pre-publish",
     "ai",
     "llm"
   ],
   "author": "Incultnito LLC",
   "license": "MIT",
-  "description": "One command to diagnose your MCP server. Tests every tool, resource, and prompt — then gives you a health report.",
+  "description": "MCP server validation CLI — fast pre-publish diagnostic for Model Context Protocol servers. Schema validation, tool/resource/prompt health checks, scorecard reporting, CI-ready exit codes.",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/incultnitollc/mcp-probe.git"
