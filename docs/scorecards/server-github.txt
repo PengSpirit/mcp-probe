@@ -1,0 +1,163 @@
+- Connecting to MCP server...
+[32m✔[39m Connected to MCP server
+- Listing tools...
+[32m✔[39m Found 26 tools
+- Validating tool schemas...
+[33m⚠[39m Schema: 0 errors, 51 warnings
+- Checking MCP spec compliance...
+[32m✔[39m MCP spec compliance OK
+- Calling tools...
+[33m⚠[39m 3/26 tools callable
+
+═══════════════════════════════════════════
+  MCP Server Inspection Report
+  Server: github-mcp-server
+═══════════════════════════════════════════
+
+Tools:
+  FAIL create_or_update_file — Create or update a single file in a GitHub repository (827ms)
+       MCP error -32603: Authentication Failed: Requires authentication
+       args sent: {"owner":"test","repo":"test","path":"/tmp/test","content":"Hello from mcp-inspect","message":"Hello from mcp-inspect","branch":"test"}
+  PASS search_repositories — Search for GitHub repositories (1517ms)
+  FAIL create_repository — Create a new GitHub repository in your account (251ms)
+       MCP error -32603: Authentication Failed: Requires authentication
+       args sent: {"name":"test"}
+  FAIL get_file_contents — Get the contents of a file or directory from a GitHub repository (271ms)
+       MCP error -32603: Not Found: Resource not found: Not Found
+       args sent: {"owner":"test","repo":"test","path":"/tmp/test"}
+  FAIL push_files — Push multiple files to a GitHub repository in a single commit (282ms)
+       MCP error -32603: Not Found: Resource not found: Not Found
+       args sent: {"owner":"test","repo":"test","branch":"test","files":[],"message":"Hello from mcp-inspect"}
+  FAIL create_issue — Create a new issue in a GitHub repository (225ms)
+       MCP error -32603: Failed to create issue: Requires authentication
+Stack: GitHubAuthenticationError: Requires authentication
+    at createGitHubError (file:///Users/pengspirit/.npm/_npx/3dfbf5a9eea4a1b3/node_modules/@modelcontextprotocol/server-github/dist/common/errors.js:55:20)
+    at githubRequest (file:///Users/pengspirit/.npm/_npx/3dfbf5a9eea4a1b3/node_modules/@modelcontextprotocol/server-github/dist/common/utils.js:38:15)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async file:///Users/pengspirit/.npm/_npx/3dfbf5a9eea4a1b3/node_modules/@modelcontextprotocol/server-github/dist/index.js:251:35
+       args sent: {"owner":"test","repo":"test","title":"test"}
+  FAIL create_pull_request — Create a new pull request in a GitHub repository (256ms)
+       MCP error -32603: Authentication Failed: Requires authentication
+       args sent: {"owner":"test","repo":"test","title":"test","head":"test","base":"test"}
+  FAIL fork_repository — Fork a GitHub repository to your account or specified organization (220ms)
+       MCP error -32603: Authentication Failed: Requires authentication
+       args sent: {"owner":"test","repo":"test"}
+  FAIL create_branch — Create a new branch in a GitHub repository (464ms)
+       MCP error -32603: Not Found: Resource not found: Not Found
+       args sent: {"owner":"test","repo":"test","branch":"test"}
+  FAIL list_commits — Get list of commits of a branch in a GitHub repository (232ms)
+       MCP error -32603: Not Found: Resource not found: Not Found
+       args sent: {"owner":"test","repo":"test"}
+  FAIL list_issues — List issues in a GitHub repository with filtering options (226ms)
+       MCP error -32603: Not Found: Resource not found: Not Found
+       args sent: {"owner":"test","repo":"test"}
+  FAIL update_issue — Update an existing issue in a GitHub repository (243ms)
+       MCP error -32603: Authentication Failed: Requires authentication
+       args sent: {"owner":"test","repo":"test","issue_number":1}
+  FAIL add_issue_comment — Add a comment to an existing issue (365ms)
+       MCP error -32603: Authentication Failed: Requires authentication
+       args sent: {"owner":"test","repo":"test","issue_number":1,"body":"test"}
+  FAIL search_code — Search for code across GitHub repositories (227ms)
+       MCP error -32603: Authentication Failed: Requires authentication
+       args sent: {"q":"test"}
+  PASS search_issues — Search for issues and pull requests across GitHub repositories (1415ms)
+  PASS search_users — Search for users on GitHub (420ms)
+  FAIL get_issue — Get details of a specific issue in a GitHub repository. (239ms)
+       MCP error -32603: Not Found: Resource not found: Not Found
+       args sent: {"owner":"test","repo":"test","issue_number":1}
+  FAIL get_pull_request — Get details of a specific pull request (262ms)
+       MCP error -32603: Not Found: Resource not found: Not Found
+       args sent: {"owner":"test","repo":"test","pull_number":1}
+  FAIL list_pull_requests — List and filter repository pull requests (211ms)
+       MCP error -32603: Not Found: Resource not found: Not Found
+       args sent: {"owner":"test","repo":"test"}
+  FAIL create_pull_request_review — Create a review on a pull request (216ms)
+       MCP error -32603: Authentication Failed: Requires authentication
+       args sent: {"owner":"test","repo":"test","pull_number":1,"body":"test","event":"APPROVE"}
+  FAIL merge_pull_request — Merge a pull request (217ms)
+       MCP error -32603: Authentication Failed: Requires authentication
+       args sent: {"owner":"test","repo":"test","pull_number":1}
+  FAIL get_pull_request_files — Get the list of files changed in a pull request (322ms)
+       MCP error -32603: Not Found: Resource not found: Not Found
+       args sent: {"owner":"test","repo":"test","pull_number":1}
+  FAIL get_pull_request_status — Get the combined status of all status checks for a pull request (43ms)
+       MCP error -32603: Not Found: Resource not found: Not Found
+       args sent: {"owner":"test","repo":"test","pull_number":1}
+  FAIL update_pull_request_branch — Update a pull request branch with the latest changes from the base branch (224ms)
+       MCP error -32603: Authentication Failed: Requires authentication
+       args sent: {"owner":"test","repo":"test","pull_number":1}
+  FAIL get_pull_request_comments — Get the review comments on a pull request (484ms)
+       MCP error -32603: Not Found: Resource not found: Not Found
+       args sent: {"owner":"test","repo":"test","pull_number":1}
+  FAIL get_pull_request_reviews — Get the reviews on a pull request (257ms)
+       MCP error -32603: Not Found: Resource not found: Not Found
+       args sent: {"owner":"test","repo":"test","pull_number":1}
+
+Schema Issues:
+  WARN  create_issue — Property "owner" missing description
+  WARN  create_issue — Property "repo" missing description
+  WARN  create_issue — Property "title" missing description
+  WARN  create_issue — Property "body" missing description
+  WARN  create_issue — Property "assignees" missing description
+  WARN  create_issue — Property "milestone" missing description
+  WARN  create_issue — Property "labels" missing description
+  WARN  list_commits — Property "owner" missing description
+  WARN  list_commits — Property "repo" missing description
+  WARN  list_commits — Property "sha" missing description
+  WARN  list_commits — Property "page" missing description
+  WARN  list_commits — Property "perPage" missing description
+  WARN  list_issues — Property "owner" missing description
+  WARN  list_issues — Property "repo" missing description
+  WARN  list_issues — Property "direction" missing description
+  WARN  list_issues — Property "labels" missing description
+  WARN  list_issues — Property "page" missing description
+  WARN  list_issues — Property "per_page" missing description
+  WARN  list_issues — Property "since" missing description
+  WARN  list_issues — Property "sort" missing description
+  WARN  list_issues — Property "state" missing description
+  WARN  update_issue — Property "owner" missing description
+  WARN  update_issue — Property "repo" missing description
+  WARN  update_issue — Property "issue_number" missing description
+  WARN  update_issue — Property "title" missing description
+  WARN  update_issue — Property "body" missing description
+  WARN  update_issue — Property "assignees" missing description
+  WARN  update_issue — Property "milestone" missing description
+  WARN  update_issue — Property "labels" missing description
+  WARN  update_issue — Property "state" missing description
+  WARN  add_issue_comment — Property "owner" missing description
+  WARN  add_issue_comment — Property "repo" missing description
+  WARN  add_issue_comment — Property "issue_number" missing description
+  WARN  add_issue_comment — Property "body" missing description
+  WARN  search_code — Property "q" missing description
+  WARN  search_code — Property "order" missing description
+  WARN  search_code — Property "page" missing description
+  WARN  search_code — Property "per_page" missing description
+  WARN  search_issues — Property "q" missing description
+  WARN  search_issues — Property "order" missing description
+  WARN  search_issues — Property "page" missing description
+  WARN  search_issues — Property "per_page" missing description
+  WARN  search_issues — Property "sort" missing description
+  WARN  search_users — Property "q" missing description
+  WARN  search_users — Property "order" missing description
+  WARN  search_users — Property "page" missing description
+  WARN  search_users — Property "per_page" missing description
+  WARN  search_users — Property "sort" missing description
+  WARN  get_issue — Property "owner" missing description
+  WARN  get_issue — Property "repo" missing description
+  WARN  get_issue — Property "issue_number" missing description
+
+═══════════════════════════════════════════
+  Health Check Score
+═══════════════════════════════════════════
+
+  Tools callable:      3/26
+  Resources readable:  N/A
+  Prompts gettable:    N/A
+  Schema errors:       0
+  Schema warnings:     51
+  Compliance errors:   0
+  Compliance warnings: 0
+  Total time:          11476ms
+
+  SOME CHECKS FAILED
+

@@ -1,10 +1,10 @@
-# Scorecard Summary — 2026-04-19
+# Scorecard Summary — last updated 2026-05-05
 
 ## TL;DR
 
-Across the four official Anthropic Model Context Protocol (MCP) Node servers, **30 of 37 tools pass `mcp-probe`'s automated health check (81% pass rate)**. Every remaining failure traces to **missing `description` fields on schema properties** — when servers ship without parameter descriptions, every automated tool (mcp-probe, IDE autocomplete, LLM tool-use planners) has to guess argument shapes.
+Across five official Anthropic Model Context Protocol (MCP) Node servers, **33 of 63 tools pass `mcp-probe`'s automated health check (52% pass rate)**. Every remaining failure traces to **missing `description` fields on schema properties** — when servers ship without parameter descriptions, every automated tool (mcp-probe, IDE autocomplete, LLM tool-use planners) has to guess argument shapes.
 
-Re-run of `@incultnitollc/mcp-probe@1.0.0` after the 2026-04-17 integrity audit. Every failure here has been classified as **server-side** or **client-side limit** — no fragile claims left in this file.
+Most recent run on `@incultnitollc/mcp-probe@1.0.1`. Every failure here has been classified as **server-side**, **client-side limit**, or **auth-required** — no fragile claims left in this file.
 
 ## Results
 
@@ -14,8 +14,11 @@ Re-run of `@incultnitollc/mcp-probe@1.0.0` after the 2026-04-17 integrity audit.
 | `@modelcontextprotocol/server-sequential-thinking` | 1 / 1 | n/a | n/a | 0 | **PASS** |
 | `@modelcontextprotocol/server-everything` | 12 / 13 | 7 / 7 | 3 / 4 | 1 | partial |
 | `@modelcontextprotocol/server-filesystem` | 8 / 14 | n/a | n/a | 18 | partial |
+| `@modelcontextprotocol/server-github` (legacy¹) | 3 / 26 | n/a | n/a | **51** | partial |
 
-**Aggregate:** 30 / 37 tools callable across 4 servers (81%). 2 / 4 servers fully pass.
+**Aggregate:** 33 / 63 tools callable across 5 servers (52%). 2 / 5 servers fully pass.
+
+¹ The legacy Node `@modelcontextprotocol/server-github@2025.4.8` was superseded in 2026 by GitHub's own [`github/github-mcp-server`](https://github.com/github/github-mcp-server) (Go-based, 29.5k stars, official). The legacy package remains on npm and is still installed by Claude Desktop configs in the wild — making this scorecard the right snapshot of what users actually run, not what GitHub now recommends.
 
 > **Scope note.** Anthropic's `fetch` MCP server is Python-only (installed via `uvx mcp-server-fetch`); it has never been published to npm. Earlier launch copy that called `server-fetch` "broken on npm" was wrong and has been removed. mcp-probe itself works against any stdio MCP server regardless of language — only this scorecard run is scoped to the official Node servers.
 
@@ -52,6 +55,30 @@ After commit `ce4f55e` (sandbox-aware paths), pass rate jumped from 2 / 14 to 8 
 
 **18 schema warnings** on this server, all "missing description on property". Fixing those descriptions would let mcp-probe distinguish file-args from directory-args automatically.
 
+### 5. server-github (legacy) — 3 / 26 tools
+
+Run on 2026-05-05 against `@modelcontextprotocol/server-github@2025.4.8` with a valid GitHub OAuth token in `GITHUB_PERSONAL_ACCESS_TOKEN`. Three tools pass: `search_repositories`, `search_issues`, `search_users` — all unauthenticated public-search endpoints that work with `q="test"` and return real results. The other 23 fail in two clusters:
+
+| Failure cluster | Count | Cause |
+|---|---|---|
+| `Authentication Failed: Requires authentication` | 5 | Write tools (`create_issue`, `create_pull_request`, `create_repository`, `fork_repository`, `create_or_update_file`) — token not reaching the spawned subprocess despite explicit env propagation. Confound, not a final answer. |
+| `Not Found: Resource not found` | 18 | Read tools called with `owner: "test", repo: "test"` — fake test args generated because the schemas have no descriptions telling mcp-probe what valid owner/repo strings look like. Same root cause as `server-filesystem` at greater scale. |
+
+**51 schema warnings** — every property on every tool is missing `description`. This is by far the largest schema-description gap of any server tested. Examples:
+
+```
+WARN  list_commits — Property "owner" missing description
+WARN  list_commits — Property "repo" missing description
+WARN  list_commits — Property "sha" missing description
+WARN  list_issues — Property "state" missing description
+WARN  list_issues — Property "labels" missing description
+... (51 total)
+```
+
+If `owner`, `repo`, `state`, `labels`, etc. each had a one-line description ("GitHub username or org name", "repository name owned by `owner`", "one of: open, closed, all", "comma-separated label names"), an automated client could pick reasonable defaults — and an LLM calling these tools from Claude Desktop wouldn't have to infer behavior from the tool name alone.
+
+**Note on the auth confound.** The 5 "auth required" failures may turn into passes once the token-propagation issue is debugged. That would shift this server from 3/26 → 8/26. The schema-description story is the real headline either way; auth handling is a tractable follow-up.
+
 ## The launch hook (revised)
 
 > *"Out of the four official Node MCP servers, two pass mcp-probe clean. The other two reveal the same issue: when servers ship without parameter descriptions, every automated tool — mine, your IDE's autocomplete, and any LLM trying to call the tool — has to guess. mcp-probe surfaces exactly which params need better docs."*
@@ -71,5 +98,11 @@ This is honest, useful to maintainers, and links naturally to "schema descriptio
 
 - `server-everything.txt`
 - `server-filesystem.txt`
+- `server-github.txt` (added 2026-05-05)
 - `server-memory.txt`
 - `server-sequential-thinking.txt`
+
+## Run log
+
+- 2026-04-19 — initial 4-server scorecard (memory, sequential-thinking, everything, filesystem) at 30/37 (81%)
+- 2026-05-05 — added `server-github` (legacy Node, deprecated by GitHub but still on npm) → aggregate 33/63 (52%). 51 schema warnings on this server alone — largest gap to date.
